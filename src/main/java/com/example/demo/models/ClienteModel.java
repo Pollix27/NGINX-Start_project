@@ -3,23 +3,24 @@ package com.example.demo.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "usuario")
-public class UsuarioModel {
+@Table(name = "cliente")
+public class ClienteModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private Long id;
+    private int id;
 
     private String nombre;
     private String email;
-    private Integer prioridad;
+    private String empresa;
+    private String rfc;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -39,12 +40,20 @@ public class UsuarioModel {
         this.email = email;
     }
 
-    public Integer getPrioridad() {
-        return prioridad;
+    public String getEmpresa() {
+        return empresa;
     }
 
-    public void setPrioridad(Integer prioridad) {
-        this.prioridad = prioridad;
+    public String getRfc() {
+        return rfc;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
     }
 
 }
