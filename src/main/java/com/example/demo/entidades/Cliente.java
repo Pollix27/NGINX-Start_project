@@ -1,10 +1,10 @@
-package com.example.demo.models;
+package com.example.demo.entidades;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cliente")
-public class ClienteModel {
+public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,6 +54,21 @@ public class ClienteModel {
 
     public void setEmpresa(String empresa) {
         this.empresa = empresa;
+    }
+
+    public void registrar() {
+        if (this.nombre == null || this.nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre es requerido");
+        }
+        if (this.email == null || this.email.isEmpty()) {
+            throw new IllegalArgumentException("El email es requerido");
+        }
+    }
+
+    public void actualizar() {
+        if (this.id <= 0) {
+            throw new IllegalStateException("No se puede actualizar un cliente sin ID");
+        }
     }
 
 }

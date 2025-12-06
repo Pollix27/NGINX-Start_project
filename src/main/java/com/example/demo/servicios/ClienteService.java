@@ -1,8 +1,8 @@
-package com.example.demo.services;
+package com.example.demo.servicios;
 
-import com.example.demo.models.ClienteModel;
+import com.example.demo.entidades.Cliente;
 
-import com.example.demo.repositories.ClienteRepository;
+import com.example.demo.repositorios.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,21 +14,16 @@ public class ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
 
-    public ArrayList<ClienteModel> obtenerCliente(){
-        return (ArrayList<ClienteModel>) clienteRepository.findAll();
+    public ArrayList<Cliente> obtenerCliente(){
+        return (ArrayList<Cliente>) clienteRepository.findAll();
     }
 
-    public ClienteModel guardarCliente(ClienteModel cliente){
+    public Cliente guardarCliente(Cliente cliente){
         return clienteRepository.save(cliente);
     }
 
-    public Optional<ClienteModel> obtenerPorId(int id){
+    public Optional<Cliente> obtenerPorId(int id){
         return clienteRepository.findById(id);
-    }
-
-
-    public ArrayList<ClienteModel> obtenerPorPrioridad(Integer prioridad){
-        return clienteRepository.findByPrioridad(prioridad);
     }
 
     public boolean eliminarCliente(int id) {

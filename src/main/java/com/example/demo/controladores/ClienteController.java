@@ -1,8 +1,8 @@
-package com.example.demo.controllers;
+package com.example.demo.controladores;
 
 
-import com.example.demo.models.ClienteModel;
-import com.example.demo.services.ClienteService;
+import com.example.demo.entidades.Cliente;
+import com.example.demo.servicios.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,23 +17,18 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @GetMapping()
-    public ArrayList<ClienteModel> obtenerClientes(){
+    public ArrayList<Cliente> obtenerClientes(){
         return this.clienteService.obtenerCliente();
     }
 
     @PostMapping()
-    public ClienteModel guardarCliente(@RequestBody ClienteModel Cliente){
+    public Cliente guardarCliente(@RequestBody Cliente Cliente){
         return this.clienteService.guardarCliente(Cliente);
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<ClienteModel> obtenerClientePorId(@PathVariable("id") int id){
+    public Optional<Cliente> obtenerClientePorId(@PathVariable("id") int id){
         return this.clienteService.obtenerPorId(id);
-    }
-
-    @GetMapping("/query")
-    public ArrayList<ClienteModel> obtenerClientePorPrioridad(@RequestParam("prioridad") Integer prioridad){
-        return this.clienteService.obtenerPorPrioridad(prioridad);
     }
 
     @DeleteMapping(path = "/{id}")
