@@ -1,0 +1,89 @@
+erDiagram
+    CLIENTE ||--o{ PROYECTO : "tiene"
+    PROYECTO ||--o{ REQUERIMIENTO : "contiene"
+    PROYECTO ||--o| PRESUPUESTO : "tiene"
+    PRESUPUESTO ||--|{ DETALLE_PRESUPUESTO : "incluye"
+    PROYECTO ||--o{ RECURSO_HUMANO : "asigna"
+    PROYECTO ||--o{ HITO : "define"
+    PROYECTO }o--o{ STAKEHOLDER : "participa"
+    PROYECTO_STAKEHOLDER }o--|| PROYECTO : "relaciona"
+    PROYECTO_STAKEHOLDER }o--|| STAKEHOLDER : "relaciona"
+
+    CLIENTE {
+        int id PK
+        string nombre
+        string email
+        string empresa
+        string rfc
+    }
+
+    PROYECTO {
+        int id PK
+        string codigo
+        string nombre
+        string descripcion
+        string alcance
+        date fechaInicio
+        date fechaFin
+        string estado
+        int idCliente FK
+    }
+
+    REQUERIMIENTO {
+        int id PK
+        int idProyecto FK
+        string descripcion
+        string tipo
+        string prioridad
+        int horasEstimadas
+    }
+
+    PRESUPUESTO {
+        int id PK
+        int idProyecto FK
+        decimal subtotal
+        decimal iva
+        decimal total
+        date fechaElaboracion
+        string estado
+    }
+
+    DETALLE_PRESUPUESTO {
+        int id PK
+        int idPresupuesto FK
+        string concepto
+        int cantidad
+        decimal precioUnitario
+        decimal subtotal
+    }
+
+    RECURSO_HUMANO {
+        int id PK
+        int idProyecto FK
+        string rol
+        int cantidad
+        int horas
+        decimal tarifaHora
+    }
+
+    HITO {
+        int id PK
+        int idProyecto FK
+        string nombre
+        date fechaInicio
+        date fechaFin
+        string entregables
+    }
+
+    STAKEHOLDER {
+        int id PK
+        string nombre
+        string email
+        string rol
+    }
+
+    PROYECTO_STAKEHOLDER {
+        int idProyecto FK
+        int idStakeholder FK
+        boolean esAprobador
+    }

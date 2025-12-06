@@ -1,0 +1,105 @@
+classDiagram
+    class Cliente {
+        -int id
+        -string nombre
+        -string email
+        -string empresa
+        -string rfc
+        +registrar()
+        +actualizar()
+    }
+
+    class Proyecto {
+        -int id
+        -string codigo
+        -string nombre
+        -string descripcion
+        -string alcance
+        -Date fechaInicio
+        -Date fechaFin
+        -string estado
+        -int idCliente
+        +crear()
+        +actualizarEstado()
+        +calcularDuracion()
+    }
+
+    class Requerimiento {
+        -int id
+        -int idProyecto
+        -string descripcion
+        -string tipo
+        -string prioridad
+        -int horasEstimadas
+        +agregar()
+        +estimar()
+    }
+
+    class Presupuesto {
+        -int id
+        -int idProyecto
+        -decimal subtotal
+        -decimal iva
+        -decimal total
+        -Date fechaElaboracion
+        -string estado
+        +calcular()
+        +aprobar()
+    }
+
+    class DetallePresupuesto {
+        -int id
+        -int idPresupuesto
+        -string concepto
+        -int cantidad
+        -decimal precioUnitario
+        -decimal subtotal
+        +calcularSubtotal()
+    }
+
+    class RecursoHumano {
+        -int id
+        -int idProyecto
+        -string rol
+        -int cantidad
+        -int horas
+        -decimal tarifaHora
+        +estimar()
+        +calcularCosto()
+    }
+
+    class Hito {
+        -int id
+        -int idProyecto
+        -string nombre
+        -Date fechaInicio
+        -Date fechaFin
+        -string entregables
+        +planificar()
+    }
+
+    class Stakeholder {
+        -int id
+        -string nombre
+        -string email
+        -string rol
+        +registrar()
+    }
+
+    class ProyectoStakeholder {
+        -int idProyecto
+        -int idStakeholder
+        -boolean esAprobador
+        +asignar()
+    }
+
+%% Relaciones
+    Cliente "1" --> "0..*" Proyecto
+    Proyecto "1" --> "0..*" Requerimiento
+    Proyecto "1" --> "0..1" Presupuesto
+    Presupuesto "1" --> "1..*" DetallePresupuesto
+    Proyecto "1" --> "0..*" RecursoHumano
+    Proyecto "1" --> "0..*" Hito
+    Proyecto "0..*" --> "0..*" Stakeholder
+    ProyectoStakeholder --> Proyecto
+    ProyectoStakeholder --> Stakeholder
