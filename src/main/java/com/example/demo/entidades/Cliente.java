@@ -49,6 +49,9 @@ public class Cliente {
     }
 
     public void setRfc(String rfc) {
+        if (rfc != null && !rfc.matches("^[A-Z0-9]{12,13}$")) {
+            throw new IllegalArgumentException("RFC debe contener 12-13 caracteres alfanuméricos");
+        }
         this.rfc = rfc;
     }
 
