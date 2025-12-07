@@ -189,13 +189,13 @@
             clienteSeleccionado = clienteId;
             document.getElementById('clienteNombre').textContent = clienteNombre;
             document.getElementById('proyectoSection').style.display = 'block';
-            
+
             fetch(`/proyecto/cliente/${clienteId}`)
             .then(response => response.json())
             .then(proyectos => {
                 const listaDiv = document.getElementById('listaProyectos');
                 const formDiv = document.getElementById('formProyecto');
-                
+
                 if (proyectos.length > 0) {
                     listaDiv.innerHTML = '<h3>Proyectos Existentes:</h3>';
                     proyectos.forEach(proyecto => {

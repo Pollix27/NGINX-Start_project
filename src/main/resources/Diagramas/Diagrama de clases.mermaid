@@ -57,7 +57,7 @@ classDiagram
         +calcularSubtotal()
     }
 
-    class RecursoHumano {
+    class AsignacionRecurso {
         -int id
         -int idProyecto
         -string rol
@@ -68,7 +68,7 @@ classDiagram
         +calcularCosto()
     }
 
-    class Hito {
+    class FaseProyecto {
         -int id
         -int idProyecto
         -string nombre
@@ -98,8 +98,8 @@ classDiagram
     Proyecto "1" --> "0..*" Requerimiento
     Proyecto "1" --> "0..1" Presupuesto
     Presupuesto "1" --> "1..*" DetallePresupuesto
-    Proyecto "1" --> "0..*" RecursoHumano
-    Proyecto "1" --> "0..*" Hito
+    Proyecto "1" --> "0..*" AsignacionRecurso
+    Proyecto "1" --> "0..*" FaseProyecto
     Proyecto "0..*" --> "0..*" Stakeholder
     ProyectoStakeholder --> Proyecto
     ProyectoStakeholder --> Stakeholder

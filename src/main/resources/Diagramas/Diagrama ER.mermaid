@@ -3,8 +3,8 @@ erDiagram
     PROYECTO ||--o{ REQUERIMIENTO : "contiene"
     PROYECTO ||--o| PRESUPUESTO : "tiene"
     PRESUPUESTO ||--|{ DETALLE_PRESUPUESTO : "incluye"
-    PROYECTO ||--o{ RECURSO_HUMANO : "asigna"
-    PROYECTO ||--o{ HITO : "define"
+    PROYECTO ||--o{ ASIGNACION_RECURSO : "asigna"
+    PROYECTO ||--o{ FASE_PROYECTO : "define"
     PROYECTO }o--o{ STAKEHOLDER : "participa"
     PROYECTO_STAKEHOLDER }o--|| PROYECTO : "relaciona"
     PROYECTO_STAKEHOLDER }o--|| STAKEHOLDER : "relaciona"
@@ -57,7 +57,7 @@ erDiagram
         decimal subtotal
     }
 
-    RECURSO_HUMANO {
+    ASIGNACION_RECURSO {
         int id PK
         int idProyecto FK
         string rol
@@ -66,7 +66,7 @@ erDiagram
         decimal tarifaHora
     }
 
-    HITO {
+    FASE_PROYECTO {
         int id PK
         int idProyecto FK
         string nombre
