@@ -1,13 +1,14 @@
 erDiagram
     CLIENTE ||--o{ PROYECTO : "tiene"
     PROYECTO ||--|| PRESUPUESTOS_DE_PROYECTO : "tiene"
-    PRESUPUESTOS_DE_PROYECTO ||--|{     DETALLES_DE_PRESUPUESTOS : "incluye"
-    PROYECTO ||--o{ ASIGNACION_RECURSO : "asigna"
+    PRESUPUESTOS_DE_PROYECTO ||--|{DETALLES_DE_PRESUPUESTOS : "incluye"
+    PROYECTO ||--o{ RECURSOS : "asigna"
     PROYECTO ||--o{ SPRINTS_DE_PROYECTOS  : "define"
     PROYECTO ||--o{ REQUERIMIENTOS_DE_PROYECTO : "contiene"
     SPRINTS_DE_PROYECTOS ||--o{REQUERIMIENTOS_DE_PROYECTO : "implementan"
     SPRINTS_DE_PROYECTOS ||--o{COLABORADORES : "participan"
     PROYECTO }o--o{ COLABORADORES : "participan"
+    SERVICIOS_ADICIONALES}o--|| DETALLES_DE_PRESUPUESTOS : "tiene"
 
 
 
@@ -53,17 +54,20 @@ erDiagram
         int id_detalle_presupuesto PK
         int id_presupuesto_fk FK
         string metodo_de_pago
-        decimal precio
-        decimal subtotal_detalle
-        decimal iva_detalle
+        decimal monto_agregado
+        decimal total_adicional
+        decimal subtotal
+        decimal iva
     }
 
-    ASIGNACION_RECURSO {
-        int id_asignacion PK
+    RECURSOS {
+        int id_recurso PK
         int id_proyecto_fk FK
-        int cantidad_asignacion
-        int horas_asignacion
-        decimal tarifaHora_asignacion
+        int cantidad_colaboradores
+        int horas_estimadas
+        int horas_adicionales
+        int numero_asignados
+        decimal tarifa_Hora
     }
 
     SPRINTS_DE_PROYECTOS {
@@ -82,4 +86,12 @@ erDiagram
         string nombre_colaborador
         string email_colaborador
         string rol_colaborador
+    }
+
+    SERVICIOS_ADICIONALES{
+        int id_servicio_adicional PK
+        int id_detalle_presupuesto_fk FK
+        string descripcion_servicio_adicional
+        decimal monto_servicio_adicional
+
     }
