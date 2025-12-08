@@ -1,12 +1,15 @@
 erDiagram
     CLIENTE ||--o{ PROYECTO : "tiene"
-    PROYECTO ||--o{ REQUERIMIENTOS_DE_PROYECTO : "contiene"
     PROYECTO ||--|| PRESUPUESTOS_DE_PROYECTO : "tiene"
-    PRESUPUESTOS_DE_PROYECTO ||--|{ DETALLE_PRESUPUESTO : "incluye"
+    PRESUPUESTOS_DE_PROYECTO ||--|{     DETALLES_DE_PRESUPUESTOS : "incluye"
     PROYECTO ||--o{ ASIGNACION_RECURSO : "asigna"
-    PROYECTO ||--o{ SPRINDS_DE_PROYECTO  : "define"
+    PROYECTO ||--o{ SPRINTS_DE_PROYECTOS  : "define"
+    PROYECTO ||--o{ REQUERIMIENTOS_DE_PROYECTO : "contiene"
+    SPRINTS_DE_PROYECTOS ||--o{REQUERIMIENTOS_DE_PROYECTO : "implementan"
+    SPRINTS_DE_PROYECTOS ||--o{COLABORADORES : "participan"
     PROYECTO }o--o{ COLABORADORES : "participan"
-    SPRINDS_DE_PROYECTO ||--o{COLABORADORES : "participan"
+
+
 
 
     CLIENTE {
@@ -31,6 +34,7 @@ erDiagram
     REQUERIMIENTOS_DE_PROYECTO {
         int id_requerimiento PK
         int id_proyecto_fk FK
+        int id_sprint FK
         string descripcion_requerimiento
         string tipo_requerimiento
         string prioridad_requerimiento
@@ -40,20 +44,18 @@ erDiagram
     PRESUPUESTOS_DE_PROYECTO {
         int id_presupuesto PK
         int id_proyecto_fk FK
-        decimal subtotal_presupuesto
-        decimal iva_presupuesto
         decimal total_presupuesto
-        date fechaElaboracion_presupuesto
+        date fecha_elaboracion
         string estado_presupuesto
     }
 
-    DETALLE_PRESUPUESTO {
-        int id_detalle PK
-        int id_proyecto_fk FK
-        string concepto_detalle
-        int cantidad_detalle
-        decimal precioUnitario_detalle
+    DETALLES_DE_PRESUPUESTOS {
+        int id_detalle_presupuesto PK
+        int id_presupuesto_fk FK
+        string metodo_de_pago
+        decimal precio
         decimal subtotal_detalle
+        decimal iva_detalle
     }
 
     ASIGNACION_RECURSO {
@@ -64,19 +66,19 @@ erDiagram
         decimal tarifaHora_asignacion
     }
 
-    SPRINDS_DE_PROYECTO {
-        int id_sprind PK
+    SPRINTS_DE_PROYECTOS {
+        int id_sprint PK
         int id_proyecto_fk FK
-        string nombre_sprind
-        date fechaInicio_sprind
-        date fechaFin_sprind
-        string estado_sprind
+        string nombre_sprint
+        date fechaInicio_sprint
+        date fechaFin_sprint
+        string estado_sprint
     }
 
     COLABORADORES {
         int id_colaborador PK
         int id_proyecto_fk FK
-        int id_sprind_fk FK
+        int id_sprint_fk FK
         string nombre_colaborador
         string email_colaborador
         string rol_colaborador
