@@ -1,40 +1,36 @@
 erDiagram
     CLIENTE ||--o{ PROYECTO : "tiene"
-    PROYECTO ||--o{ REQUERIMIENTO : "contiene"
+    PROYECTO ||--o{ REQUERIMIENTO_DE_PROYECTO : "contiene"
     PROYECTO ||--o| PRESUPUESTO : "tiene"
     PRESUPUESTO ||--|{ DETALLE_PRESUPUESTO : "incluye"
     PROYECTO ||--o{ ASIGNACION_RECURSO : "asigna"
-    PROYECTO ||--o{ FASE_PROYECTO : "define"
-    PROYECTO }o--o{ STAKEHOLDER : "participa"
-    PROYECTO_STAKEHOLDER }o--|| PROYECTO : "relaciona"
-    PROYECTO_STAKEHOLDER }o--|| STAKEHOLDER : "relaciona"
+    PROYECTO ||--o{ SPRINT_DE_PROYECTO  : "define"
+    PROYECTO }o--o{ COLABORADORES : "participa"
 
     CLIENTE {
-        int id PK
-        string nombre
-        string email
-        string empresa
-        string rfc
+        int id_cliente PK
+        string email_cliente
+        string empresa_cliente
+        string rfc_cliente
     }
 
     PROYECTO {
-        int id PK
-        string codigo
-        string nombre
-        string descripcion
-        string alcance
-        date fechaInicio
-        date fechaFin
-        string estado
-        int idCliente FK
+        int id_cliente PK
+        string nombre_proyecto
+        string descripcion_proyecto
+        string complejidad
+        date fechaInicio_proyecto
+        date fechaFin_proyecto
+        string estado_proyecto
+        int id_Cliente FK
     }
 
-    REQUERIMIENTO {
-        int id PK
-        int idProyecto FK
+    REQUERIMIENTO_DE_PROYECTO {
+        int id_requerimiento PK
+        int id_Proyecto FK
         string descripcion
-        string tipo
-        string prioridad
+        string tipo_requerimiento
+        string prioridad_requerimiento
         int horasEstimadas
     }
 
@@ -66,24 +62,18 @@ erDiagram
         decimal tarifaHora
     }
 
-    FASE_PROYECTO {
+    SPRINT_DE_PROYECTO {
         int id PK
         int idProyecto FK
         string nombre
         date fechaInicio
         date fechaFin
-        string entregables
+        string estado_sprint
     }
 
-    STAKEHOLDER {
+    COLABORADORES {
         int id PK
         string nombre
         string email
         string rol
-    }
-
-    PROYECTO_STAKEHOLDER {
-        int idProyecto FK
-        int idStakeholder FK
-        boolean esAprobador
     }
