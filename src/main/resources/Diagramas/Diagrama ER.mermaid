@@ -1,42 +1,43 @@
 erDiagram
     CLIENTE ||--o{ PROYECTO : "tiene"
-    PROYECTO ||--o{ REQUERIMIENTO_DE_PROYECTO : "contiene"
-    PROYECTO ||--o| PRESUPUESTO : "tiene"
-    PRESUPUESTO ||--|{ DETALLE_PRESUPUESTO : "incluye"
+    PROYECTO ||--o{ REQUERIMIENTOS_DE_PROYECTO : "contiene"
+    PROYECTO ||--|| PRESUPUESTOS_DE_PROYECTO : "tiene"
+    PRESUPUESTOS_DE_PROYECTO ||--|{ DETALLE_PRESUPUESTO : "incluye"
     PROYECTO ||--o{ ASIGNACION_RECURSO : "asigna"
     PROYECTO ||--o{ SPRINT_DE_PROYECTO  : "define"
-    PROYECTO }o--o{ COLABORADORES : "participa"
+    PROYECTO }o--o{ COLABORADORES : "participan"
+
 
     CLIENTE {
-        int id_cliente PK
+        int id_Cliente PK
         string email_cliente
         string empresa_cliente
         string rfc_cliente
     }
 
     PROYECTO {
-        int id_cliente PK
+        int id_Proyecto PK
+        int id_Cliente FK
         string nombre_proyecto
         string descripcion_proyecto
-        string complejidad
+        string complejidad_proyecto
         date fechaInicio_proyecto
         date fechaFin_proyecto
         string estado_proyecto
-        int id_Cliente FK
     }
 
-    REQUERIMIENTO_DE_PROYECTO {
-        int id_requerimiento PK
+    REQUERIMIENTOS_DE_PROYECTO {
+        int id_Requerimiento PK
         int id_Proyecto FK
-        string descripcion
+        string descripcion_requerimiento
         string tipo_requerimiento
         string prioridad_requerimiento
-        int horasEstimadas
+        int horasEstimadas_requerimiento
     }
 
-    PRESUPUESTO {
-        int id PK
-        int idProyecto FK
+    PRESUPUESTOS_DE_PROYECTO {
+        int id_Presupuesto PK
+        int id_Proyecto FK
         decimal subtotal
         decimal iva
         decimal total
@@ -45,8 +46,8 @@ erDiagram
     }
 
     DETALLE_PRESUPUESTO {
-        int id PK
-        int idPresupuesto FK
+        int id_Presupuesto PK
+        int id_Proyecto FK
         string concepto
         int cantidad
         decimal precioUnitario
@@ -54,17 +55,16 @@ erDiagram
     }
 
     ASIGNACION_RECURSO {
-        int id PK
-        int idProyecto FK
-        string rol
+        int id_Asignacion PK
+        int id_Proyecto FK
         int cantidad
         int horas
         decimal tarifaHora
     }
 
     SPRINT_DE_PROYECTO {
-        int id PK
-        int idProyecto FK
+        int id_Sprint PK
+        int id_Proyecto FK
         string nombre
         date fechaInicio
         date fechaFin
@@ -72,8 +72,9 @@ erDiagram
     }
 
     COLABORADORES {
-        int id PK
-        string nombre
-        string email
-        string rol
+        int id_Colaborador PK
+        int id_Proyecto FK
+        string nombre_colaborador
+        string email_colaborador
+        string rol_colaborador
     }
