@@ -1,89 +1,96 @@
 erDiagram
     CLIENTE ||--o{ PROYECTO : "tiene"
-    PROYECTO ||--o{ REQUERIMIENTO : "contiene"
-    PROYECTO ||--o| PRESUPUESTO : "tiene"
-    PRESUPUESTO ||--|{ DETALLE_PRESUPUESTO : "incluye"
-    PROYECTO ||--o{ RECURSO_HUMANO : "asigna"
-    PROYECTO ||--o{ HITO : "define"
-    PROYECTO }o--o{ STAKEHOLDER : "participa"
-    PROYECTO_STAKEHOLDER }o--|| PROYECTO : "relaciona"
-    PROYECTO_STAKEHOLDER }o--|| STAKEHOLDER : "relaciona"
+    PROYECTO ||--|| PRESUPUESTO_DE_PROYECTO : "tiene"
+    PRESUPUESTO_DE_PROYECTO ||--|{DETALLES_DE_PRESUPUESTOS : "incluye"
+    PROYECTO ||--|{ RECURSOS : "asigna"
+    PROYECTO ||--|{ SPRINTS_DE_PROYECTOS  : "define"
+    PROYECTO ||--|{ REQUERIMIENTOS_DE_PROYECTO : "contiene"
+    SPRINTS_DE_PROYECTOS ||--o{REQUERIMIENTOS_DE_PROYECTO : "implementan"
+    SPRINTS_DE_PROYECTOS ||--|{COLABORADORES : "participan"
+    PROYECTO }|--|{ COLABORADORES : "participan"
+    SERVICIOS_ADICIONALES}o--|| DETALLES_DE_PRESUPUESTOS : "tiene"
+
+
 
     CLIENTE {
-        int id PK
-        string nombre
-        string email
-        string empresa
-        string rfc
+        int id_cliente PK
+        int telefono_cliente
+        string email_cliente
+        string empresa_cliente
+        string rfc_cliente
     }
 
     PROYECTO {
-        int id PK
-        string codigo
-        string nombre
-        string descripcion
-        string alcance
-        date fechaInicio
-        date fechaFin
-        string estado
-        int idCliente FK
+        int id_proyecto PK
+        int id_cliente_fk FK
+        int id_presupuesto_fk FK
+        string nombre_proyecto
+        string descripcion_proyecto
+        string complejidad_proyecto
+        date fecha_inicio_proyecto
+        date fecha_fin_proyecto
+        string estado_proyecto
     }
 
-    REQUERIMIENTO {
-        int id PK
-        int idProyecto FK
-        string descripcion
-        string tipo
-        string prioridad
-        int horasEstimadas
+    REQUERIMIENTOS_DE_PROYECTO {
+        int id_requerimiento PK
+        int id_proyecto_fk FK
+        int id_sprint_fk FK
+        string descripcion_requerimiento
+        string tipo_requerimiento
+        string prioridad_requerimiento
+        int horas_estimadas
     }
 
-    PRESUPUESTO {
-        int id PK
-        int idProyecto FK
+    PRESUPUESTO_DE_PROYECTO {
+        int id_presupuesto PK
+        int id_proyecto_fk FK
+        decimal total_presupuesto
+        date fecha_elaboracion
+        string estado_presupuesto
+    }
+
+    DETALLES_DE_PRESUPUESTOS {
+        int id_detalle_presupuesto PK
+        int id_presupuesto_fk FK
+        string metodo_de_pago
+        decimal monto_agregado
+        decimal total_adicional
         decimal subtotal
         decimal iva
-        decimal total
-        date fechaElaboracion
-        string estado
     }
 
-    DETALLE_PRESUPUESTO {
-        int id PK
-        int idPresupuesto FK
-        string concepto
-        int cantidad
-        decimal precioUnitario
-        decimal subtotal
+    RECURSOS {
+        int id_recurso PK
+        int id_proyecto_fk FK
+        int cantidad_colaboradores
+        int horas_estimadas
+        int horas_adicionales
+        decimal tarifa_hora
     }
 
-    RECURSO_HUMANO {
-        int id PK
-        int idProyecto FK
-        string rol
-        int cantidad
-        int horas
-        decimal tarifaHora
+    SPRINTS_DE_PROYECTOS {
+        int id_sprint PK
+        int id_proyecto_fk FK
+        string nombre_sprint
+        date fecha_inicio_sprint
+        date fecha_fin_sprint
+        string estado_sprint
     }
 
-    HITO {
-        int id PK
-        int idProyecto FK
-        string nombre
-        date fechaInicio
-        date fechaFin
-        string entregables
+    COLABORADORES {
+        int id_colaborador PK
+        int id_proyecto_fk FK
+        int id_sprint_fk FK
+        string nombre_colaborador
+        string email_colaborador
+        string rol_colaborador
     }
 
-    STAKEHOLDER {
-        int id PK
-        string nombre
-        string email
-        string rol
-    }
+    SERVICIOS_ADICIONALES{
+        int id_servicio_adicional PK
+        int id_detalle_presupuesto_fk FK
+        string descripcion_servicio_adicional
+        decimal monto_servicio_adicional
 
-    PROYECTO_STAKEHOLDER {
-        int idProyecto FK
-        int idStakeholder FK
-        boolean esAprobador
     }

@@ -3,256 +3,332 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Clientes</title>
+    <title>Sistema de Gestión - Inicio</title>
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input {
-            width: 100%;
-            padding: 8px;
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
-        button {
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        /* Barra de navegación */
+        .navbar {
+            background-color: #a0a0a0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            color: #2563eb;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #1d4ed8;
+        }
+
+        .nav-links a.active {
+            color: #1e40af;
+            font-weight: bold;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+        }
+
+        /* Hero section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Tarjetas de características */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .feature-card a {
+            display: inline-block;
+            padding: 12px 24px;
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        #clientes {
-            margin-top: 30px;
-        }
-        .cliente-item {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            cursor: pointer;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
             transition: background-color 0.3s;
         }
-        .cliente-item:hover {
-            background-color: #f0f0f0;
+
+        .feature-card a:hover {
+            background-color: #45a049;
         }
-        #proyectoSection {
-            display: none;
-            margin-top: 30px;
-            border: 2px solid #4CAF50;
+
+        /* Estadísticas */
+        .stats {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 50px;
+        }
+
+        .stats h2 {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
             padding: 20px;
-            border-radius: 5px;
-        }
-        .btn-cancelar {
-            background-color: #f44336;
-        }
-        .btn-cancelar:hover {
-            background-color: #da190b;
-        }
-        .proyecto-item {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
             background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Footer info */
+        .info-section {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .info-section h2 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .info-section p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-    <h1>Gestión de Clientes</h1>
-    
-    <div>
-        <h2>Registrar Cliente</h2>
-        <div class="form-group">
-            <label>Nombre:</label>
-            <input type="text" id="nombre">
-        </div>
-        <div class="form-group">
-            <label>Email:</label>
-            <input type="email" id="email">
-        </div>
-        <div class="form-group">
-            <label>Empresa:</label>
-            <input type="text" id="empresa">
-        </div>
-        <div class="form-group">
-            <label>RFC:</label>
-            <input type="text" id="rfc">
-        </div>
-        <button onclick="guardarCliente()">Guardar</button>
-        <button onclick="listarClientes()">Listar Clientes</button>
+<!-- Barra de navegación -->
+<nav class="navbar">
+    <div class="logo">LOGO DE<br>LA MARCA</div>
+    <ul class="nav-links">
+        <li><a href="index.html" class="active">INICIO</a></li>
+        <li><a href="cliente.html">LISTA DE CLIENTES</a></li>
+        <li><a href="proyecto.html">LISTA DE PROYECTOS</a></li>
+    </ul>
+</nav>
+
+<!-- Contenedor principal -->
+<div class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Sistema de Gestión</h1>
+        <p>Gestiona tus clientes y proyectos de manera eficiente con nuestra plataforma integral</p>
     </div>
 
-    <div id="clientes"></div>
+    <!-- Características -->
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-icon">👥</div>
+            <h2>Gestión de Clientes</h2>
+            <p>Administra toda la información de tus clientes en un solo lugar. RFC, email, teléfono y más.</p>
+            <a href="cliente.html">Ir a Clientes</a>
+        </div>
 
-    <div id="proyectoSection">
-        <h2>Proyectos del Cliente: <span id="clienteNombre"></span></h2>
-        <button class="btn-cancelar" onclick="cerrarProyectos()">Cancelar / Volver</button>
-        
-        <div id="listaProyectos"></div>
-        
-        <div id="formProyecto" style="display:none;">
-            <h3>Crear Nuevo Proyecto</h3>
-            <div class="form-group">
-                <label>Código:</label>
-                <input type="text" id="codigo">
-            </div>
-            <div class="form-group">
-                <label>Nombre:</label>
-                <input type="text" id="nombreProyecto">
-            </div>
-            <div class="form-group">
-                <label>Descripción:</label>
-                <input type="text" id="descripcion">
-            </div>
-            <div class="form-group">
-                <label>Alcance:</label>
-                <input type="text" id="alcance">
-            </div>
-            <div class="form-group">
-                <label>Fecha Inicio:</label>
-                <input type="date" id="fechaInicio">
-            </div>
-            <div class="form-group">
-                <label>Fecha Fin:</label>
-                <input type="date" id="fechaFin">
-            </div>
-            <div class="form-group">
-                <label>Estado:</label>
-                <input type="text" id="estado">
-            </div>
-            <button onclick="guardarProyecto()">Guardar Proyecto</button>
-            <button class="btn-cancelar" onclick="cerrarProyectos()">Cancelar</button>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h2>Control de Proyectos</h2>
+            <p>Organiza y da seguimiento a todos tus proyectos con información detallada de cada uno.</p>
+            <a href="proyecto.html">Ir a Proyectos</a>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🔗</div>
+            <h2>Integración Total</h2>
+            <p>Conecta clientes con sus proyectos y mantén toda la información relacionada.</p>
+            <a href="cliente.html">Comenzar</a>
         </div>
     </div>
 
-    <script>
-        function guardarCliente() {
-            const cliente = {
-                nombre: document.getElementById('nombre').value,
-                email: document.getElementById('email').value,
-                empresa: document.getElementById('empresa').value,
-                rfc: document.getElementById('rfc').value
-            };
+    <!-- Estadísticas -->
+    <div class="stats">
+        <h2>Estadísticas del Sistema</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number" id="totalClientes">0</div>
+                <div class="stat-label">Clientes Registrados</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="totalProyectos">0</div>
+                <div class="stat-label">Proyectos Activos</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="proyectosPlanificacion">0</div>
+                <div class="stat-label">En Planificación</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="proyectosProgreso">0</div>
+                <div class="stat-label">En Progreso</div>
+            </div>
+        </div>
+    </div>
 
-            fetch('/cliente', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(cliente)
+    <!-- Información adicional -->
+    <div class="info-section">
+        <h2>Acerca del Sistema</h2>
+        <p>
+            Este sistema de gestión te permite administrar de forma eficiente la información de tus clientes
+            y proyectos. Con una interfaz intuitiva y fácil de usar, podrás registrar nuevos clientes,
+            crear proyectos asociados a cada cliente, y dar seguimiento al estado de cada proyecto.
+            Toda la información está organizada y disponible en tiempo real para facilitar tu trabajo diario.
+        </p>
+    </div>
+</div>
+
+<script>
+    // Cargar estadísticas al iniciar la página
+    window.onload = function() {
+        cargarEstadisticas();
+    };
+
+    /**
+     * Cargar estadísticas del sistema
+     */
+    function cargarEstadisticas() {
+        // Cargar total de clientes
+        fetch('/cliente')
+            .then(response => response.json())
+            .then(clientes => {
+                document.getElementById('totalClientes').textContent = clientes.length;
             })
-            .then(response => response.json())
-            .then(data => {
-                alert('Cliente guardado con éxito');
-                listarClientes();
+            .catch(error => {
+                console.error('Error al cargar clientes:', error);
             });
-        }
 
-        let clienteSeleccionado = null;
-
-        function listarClientes() {
-            fetch('/cliente')
-            .then(response => response.json())
-            .then(data => {
-                const div = document.getElementById('clientes');
-                div.innerHTML = '<h2>Lista de Clientes (Click para ver proyectos)</h2>';
-                data.forEach(cliente => {
-                    div.innerHTML += `
-                        <div class="cliente-item" onclick="verProyectosCliente(${cliente.id}, '${cliente.nombre}')">
-                            <strong>ID:</strong> ${cliente.id}<br>
-                            <strong>Nombre:</strong> ${cliente.nombre}<br>
-                            <strong>Email:</strong> ${cliente.email}<br>
-                            <strong>Empresa:</strong> ${cliente.empresa}<br>
-                            <strong>RFC:</strong> ${cliente.rfc}
-                        </div>
-                    `;
-                });
-            });
-        }
-
-        function verProyectosCliente(clienteId, clienteNombre) {
-            clienteSeleccionado = clienteId;
-            document.getElementById('clienteNombre').textContent = clienteNombre;
-            document.getElementById('proyectoSection').style.display = 'block';
-
-            fetch(`/proyecto/cliente/${clienteId}`)
+        // Cargar proyectos y calcular estadísticas
+        fetch('/proyecto')
             .then(response => response.json())
             .then(proyectos => {
-                const listaDiv = document.getElementById('listaProyectos');
-                const formDiv = document.getElementById('formProyecto');
+                document.getElementById('totalProyectos').textContent = proyectos.length;
 
-                if (proyectos.length > 0) {
-                    listaDiv.innerHTML = '<h3>Proyectos Existentes:</h3>';
-                    proyectos.forEach(proyecto => {
-                        listaDiv.innerHTML += `
-                            <div class="proyecto-item">
-                                <strong>Código:</strong> ${proyecto.codigo}<br>
-                                <strong>Nombre:</strong> ${proyecto.nombre}<br>
-                                <strong>Descripción:</strong> ${proyecto.descripcion || 'N/A'}<br>
-                                <strong>Estado:</strong> ${proyecto.estado || 'N/A'}<br>
-                                <strong>Fecha Inicio:</strong> ${proyecto.fechaInicio || 'N/A'}<br>
-                                <strong>Fecha Fin:</strong> ${proyecto.fechaFin || 'N/A'}
-                            </div>
-                        `;
-                    });
-                    listaDiv.innerHTML += '<button onclick="mostrarFormProyecto()">Crear Nuevo Proyecto</button>';
-                    formDiv.style.display = 'none';
-                } else {
-                    listaDiv.innerHTML = '<p>Este cliente no tiene proyectos.</p>';
-                    formDiv.style.display = 'block';
-                }
-            });
-        }
+                // Contar proyectos por estado
+                const planificacion = proyectos.filter(p => p.estadoProyecto === 'Planificación').length;
+                const progreso = proyectos.filter(p => p.estadoProyecto === 'En Progreso').length;
 
-        function mostrarFormProyecto() {
-            document.getElementById('formProyecto').style.display = 'block';
-        }
-
-        function guardarProyecto() {
-            const proyecto = {
-                codigo: document.getElementById('codigo').value,
-                nombre: document.getElementById('nombreProyecto').value,
-                descripcion: document.getElementById('descripcion').value,
-                alcance: document.getElementById('alcance').value,
-                fechaInicio: document.getElementById('fechaInicio').value,
-                fechaFin: document.getElementById('fechaFin').value,
-                estado: document.getElementById('estado').value,
-                cliente: { id: clienteSeleccionado }
-            };
-
-            fetch('/proyecto', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(proyecto)
+                document.getElementById('proyectosPlanificacion').textContent = planificacion;
+                document.getElementById('proyectosProgreso').textContent = progreso;
             })
-            .then(response => response.json())
-            .then(data => {
-                alert('Proyecto guardado con éxito');
-                const clienteNombre = document.getElementById('clienteNombre').textContent;
-                verProyectosCliente(clienteSeleccionado, clienteNombre);
+            .catch(error => {
+                console.error('Error al cargar proyectos:', error);
+                // Si el endpoint /proyecto no existe sin ID de cliente, mostrar 0
+                document.getElementById('totalProyectos').textContent = '-';
+                document.getElementById('proyectosPlanificacion').textContent = '-';
+                document.getElementById('proyectosProgreso').textContent = '-';
             });
-        }
-
-        function cerrarProyectos() {
-            document.getElementById('proyectoSection').style.display = 'none';
-            document.getElementById('formProyecto').style.display = 'none';
-            clienteSeleccionado = null;
-        }
-    </script>
+    }
+</script>
 </body>
 </html>

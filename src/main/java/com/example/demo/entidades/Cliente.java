@@ -2,74 +2,135 @@ package com.example.demo.entidades;
 
 import jakarta.persistence.*;
 
+/**
+ * Entidad que representa un Cliente en el sistema.
+ * Mapea la tabla "cliente" de la base de datos.
+ * 
+ * @author NGINX
+ * @version 1.0
+ */
 @Entity
 @Table(name = "cliente")
 public class Cliente {
-
+    
+    /** Identificador único del cliente (clave primaria) */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private int id;
+    @Column(name = "id_cliente")
+    private int idCliente;
 
-    private String nombre;
-    private String email;
-    private String empresa;
-    private String rfc;
+    /** Número de teléfono del cliente */
+    @Column(name = "telefono_cliente")
+    private String telefonoCliente;
+    
+    /** Correo electrónico del cliente */
+    @Column(name = "email_cliente")
+    private String emailCliente;
+    
+    /** Nombre de la empresa del cliente */
+    @Column(name = "empresa_cliente")
+    private String empresaCliente;
+    
+    /** RFC (Registro Federal de Contribuyentes) del cliente */
+    @Column(name = "rfc_cliente")
+    private String rfcCliente;
 
-    public int getId() {
-        return id;
+    /**
+     * Obtiene el ID del cliente.
+     * @return ID del cliente
+     */
+    public int getIdCliente() {
+        return idCliente;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    /**
+     * Establece el ID del cliente.
+     * @param idCliente ID del cliente
+     */
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public String getNombre() {
-        return nombre;
+    /**
+     * Obtiene el teléfono del cliente.
+     * @return Teléfono del cliente
+     */
+    public String getTelefonoCliente() {
+        return telefonoCliente;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    /**
+     * Establece el teléfono del cliente.
+     * @param telefonoCliente Teléfono del cliente
+     */
+    public void setTelefonoCliente(String telefonoCliente) {
+        this.telefonoCliente = telefonoCliente;
     }
 
-    public String getEmail() {
-        return email;
+    /**
+     * Obtiene el email del cliente.
+     * @return Email del cliente
+     */
+    public String getEmailCliente() {
+        return emailCliente;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    /**
+     * Establece el email del cliente.
+     * @param emailCliente Email del cliente
+     */
+    public void setEmailCliente(String emailCliente) {
+        this.emailCliente = emailCliente;
     }
 
-    public String getEmpresa() {
-        return empresa;
+    /**
+     * Obtiene el nombre de la empresa del cliente.
+     * @return Nombre de la empresa
+     */
+    public String getEmpresaCliente() {
+        return empresaCliente;
     }
 
-    public String getRfc() {
-        return rfc;
+    /**
+     * Establece el nombre de la empresa del cliente.
+     * @param empresaCliente Nombre de la empresa
+     */
+    public void setEmpresaCliente(String empresaCliente) {
+        this.empresaCliente = empresaCliente;
     }
 
-    public void setRfc(String rfc) {
-        if (rfc != null && !rfc.matches("^[A-Z0-9]{12,13}$")) {
-            throw new IllegalArgumentException("RFC debe contener 12-13 caracteres alfanuméricos");
-        }
-        this.rfc = rfc;
+    /**
+     * Obtiene el RFC del cliente.
+     * @return RFC del cliente
+     */
+    public String getRfcCliente() {
+        return rfcCliente;
     }
 
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
+    /**
+     * Establece el RFC del cliente.
+     * @param rfcCliente RFC del cliente
+     */
+    public void setRfcCliente(String rfcCliente) {
+        this.rfcCliente = rfcCliente;
     }
 
+    /**
+     * Valida los datos del cliente antes de registrarlo.
+     * @throws IllegalArgumentException si el email está vacío o es nulo
+     */
     public void registrar() {
-        if (this.nombre == null || this.nombre.isEmpty()) {
-            throw new IllegalArgumentException("El nombre es requerido");
-        }
-        if (this.email == null || this.email.isEmpty()) {
+        if (this.emailCliente == null || this.emailCliente.isEmpty()) {
             throw new IllegalArgumentException("El email es requerido");
         }
     }
 
+    /**
+     * Valida que el cliente tenga un ID antes de actualizarlo.
+     * @throws IllegalStateException si el ID del cliente es inválido
+     */
     public void actualizar() {
-        if (this.id <= 0) {
+        if (this.idCliente <= 0) {
             throw new IllegalStateException("No se puede actualizar un cliente sin ID");
         }
     }

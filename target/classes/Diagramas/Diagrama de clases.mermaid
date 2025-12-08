@@ -1,105 +1,107 @@
 classDiagram
     class Cliente {
-        -int id
-        -string nombre
-        -string email
-        -string empresa
-        -string rfc
+        -int id_cliente
+        -int telefono_cliente
+        -string email_cliente
+        -string empresa_cliente
+        -string rfc_cliente
         +registrar()
         +actualizar()
     }
 
     class Proyecto {
-        -int id
-        -string codigo
-        -string nombre
-        -string descripcion
-        -string alcance
-        -Date fechaInicio
-        -Date fechaFin
-        -string estado
-        -int idCliente
+        -int id_proyecto
+        -string nombre_proyecto
+        -string descripcion_proyecto
+        -string complejidad_proyecto
+        -Date fecha_inicio_proyecto
+        -Date fecha_fin_proyecto
+        -string estado_proyecto
+        -int id_cliente_fk
         +crear()
         +actualizarEstado()
         +calcularDuracion()
     }
 
-    class Requerimiento {
-        -int id
-        -int idProyecto
-        -string descripcion
-        -string tipo
-        -string prioridad
-        -int horasEstimadas
+    class Requerimientos_de_proyecto {
+        -int id_requerimiento
+        -int id_proyecto_fk
+        -string descripcion_requerimiento
+        -string tipo_requerimiento
+        -string prioridad_requerimiento
+        -int horasEstimadas_requerimiento
         +agregar()
         +estimar()
     }
 
-    class Presupuesto {
-        -int id
-        -int idProyecto
-        -decimal subtotal
-        -decimal iva
-        -decimal total
-        -Date fechaElaboracion
-        -string estado
+    class Presupuestos_de_proyecto {
+        -int id_presupuesto
+        -int id_proyecto_fk
+        -decimal total_presupuesto
+        -Date fecha_elaboracion
+        -string estado_presupuesto
         +calcular()
         +aprobar()
     }
 
-    class DetallePresupuesto {
-        -int id
-        -int idPresupuesto
-        -string concepto
-        -int cantidad
-        -decimal precioUnitario
+    class Detalles_de_presupuesto {
+        -int id_detalle_presupuesto
+        -int id_presupuesto_fk
+        -string metodo_de_pago
+        -decimal monto_agregado
+        -decimal total_adicional
         -decimal subtotal
         +calcularSubtotal()
     }
 
-    class RecursoHumano {
-        -int id
-        -int idProyecto
-        -string rol
-        -int cantidad
-        -int horas
-        -decimal tarifaHora
+    class Recursos {
+        -int id_recursos
+        -int id_proyecto_fk
+        -int cantidad_colaboradores
+        -int horas_estimadas
+        -int horas_adicionales
+        -decimal tarifa_hora
         +estimar()
         +calcularCosto()
     }
 
-    class Hito {
-        -int id
-        -int idProyecto
-        -string nombre
-        -Date fechaInicio
-        -Date fechaFin
-        -string entregables
+    class Sprints_de_proyecto {
+        -int id_sprints
+        -int id_proyecto_fk
+        -string nombre_sprints
+        -Date fecha_inicio_sprints
+        -Date fecha_fin_sprints
+        -string estado_sprints
         +planificar()
     }
 
-    class Stakeholder {
-        -int id
-        -string nombre
-        -string email
-        -string rol
-        +registrar()
+    class Colaboradores{
+    -int id_colaboradores
+    -int id_proyecto_fk
+    -int id_sprint_fk
+    string nombre_colaborador
+    string email_colaborador
+    string rol_colaborador
+    +registrar()
+    +actualizar()
     }
 
-    class ProyectoStakeholder {
-        -int idProyecto
-        -int idStakeholder
-        -boolean esAprobador
-        +asignar()
+    class Servicios_adicionales {
+        -int id_servicio_adicional
+        -int id_detalle_presupuesto
+        -string descripcion_servicio
+        decimal monto_servicio_adicional
+        calcularAdicionales()
     }
 
 %% Relaciones
     Cliente "1" --> "0..*" Proyecto
-    Proyecto "1" --> "0..*" Requerimiento
-    Proyecto "1" --> "0..1" Presupuesto
-    Presupuesto "1" --> "1..*" DetallePresupuesto
-    Proyecto "1" --> "0..*" RecursoHumano
-    Proyecto "1" --> "0..*" Hito
-    Proyecto "0..*" --> "0..*" Stakeholder
-    ProyectoStakeholder --> Proyecto
-    ProyectoStakeholder --> Stakeholder
+    Proyecto "1" --> "1" Presupuestos_de_proyecto
+    Presupuestos_de_proyecto "1" --> "1..*" Detalles_de_presupuesto
+    Proyecto "1" --> "1..*" Recursos
+    Proyecto "1" --> "1..*" Sprints_de_proyecto
+    Proyecto "1" --> "1..*" Requerimientos_de_proyecto
+    Sprints_de_proyecto "1" --> "0..*" Requerimientos_de_proyecto
+    Sprints_de_proyecto "1" --> "1..*" Colaboradores
+    Proyecto "1..*" --> "1..*" Colaboradores
+    Servicios_adicionales "0..*" --> "1" Detalles_de_presupuesto

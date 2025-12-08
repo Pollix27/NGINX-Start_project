@@ -3,94 +3,109 @@ package com.example.demo.entidades;
 import jakarta.persistence.*;
 import java.util.Date;
 
+/**
+ * Entidad que representa un Proyecto en el sistema.
+ * Mapea la tabla "proyecto" de la base de datos.
+ * Cada proyecto está asociado a un cliente.
+ * 
+ * @author NGINX
+ * @version 1.0
+ */
 @Entity
 @Table(name = "proyecto")
 public class Proyecto {
 
+    /** Identificador único del proyecto (clave primaria) */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private int id;
+    @Column(name = "id_proyecto")
+    private int idProyecto;
 
-    private String codigo;
-    private String nombre;
-    private String descripcion;
-    private String alcance;
+    /** Nombre del proyecto */
+    @Column(name = "nombre_proyecto")
+    private String nombreProyecto;
     
+    /** Descripción detallada del proyecto */
+    @Column(name = "descripcion_proyecto")
+    private String descripcionProyecto;
+    
+    /** Nivel de complejidad del proyecto (Baja, Media, Alta) */
+    @Column(name = "complejidad_proyecto")
+    private String complejidadProyecto;
+    
+    /** Fecha de inicio del proyecto */
     @Temporal(TemporalType.DATE)
-    private Date fechaInicio;
+    @Column(name = "fecha_inicio_proyecto")
+    private Date fechaInicioProyecto;
     
+    /** Fecha de finalización del proyecto */
     @Temporal(TemporalType.DATE)
-    private Date fechaFin;
+    @Column(name = "fecha_fin_proyecto")
+    private Date fechaFinProyecto;
     
-    private String estado;
+    /** Estado actual del proyecto (Planificación, En Progreso, En Pausa, Completado) */
+    @Column(name = "estado_proyecto")
+    private String estadoProyecto;
     
+    /** Cliente al que pertenece el proyecto (relación Many-to-One) */
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
+    @JoinColumn(name = "id_cliente_fk")
     private Cliente cliente;
 
-    public int getId() {
-        return id;
+    public int getIdProyecto() {
+        return idProyecto;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdProyecto(int idProyecto) {
+        this.idProyecto = idProyecto;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getNombreProyecto() {
+        return nombreProyecto;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setNombreProyecto(String nombreProyecto) {
+        this.nombreProyecto = nombreProyecto;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getDescripcionProyecto() {
+        return descripcionProyecto;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDescripcionProyecto(String descripcionProyecto) {
+        this.descripcionProyecto = descripcionProyecto;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getComplejidadProyecto() {
+        return complejidadProyecto;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setComplejidadProyecto(String complejidadProyecto) {
+        this.complejidadProyecto = complejidadProyecto;
     }
 
-    public String getAlcance() {
-        return alcance;
+    public Date getFechaInicioProyecto() {
+        return fechaInicioProyecto;
     }
 
-    public void setAlcance(String alcance) {
-        this.alcance = alcance;
+    public void setFechaInicioProyecto(Date fechaInicioProyecto) {
+        this.fechaInicioProyecto = fechaInicioProyecto;
     }
 
-    public Date getFechaInicio() {
-        return fechaInicio;
+    public Date getFechaFinProyecto() {
+        return fechaFinProyecto;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public void setFechaFinProyecto(Date fechaFinProyecto) {
+        this.fechaFinProyecto = fechaFinProyecto;
     }
 
-    public Date getFechaFin() {
-        return fechaFin;
+    public String getEstadoProyecto() {
+        return estadoProyecto;
     }
 
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setEstadoProyecto(String estadoProyecto) {
+        this.estadoProyecto = estadoProyecto;
     }
 
     public Cliente getCliente() {
@@ -101,24 +116,33 @@ public class Proyecto {
         this.cliente = cliente;
     }
 
+    /**
+     * Valida los datos del proyecto antes de crearlo.
+     * @throws IllegalArgumentException si el nombre del proyecto está vacío o es nulo
+     */
     public void crear() {
-        if (this.nombre == null || this.nombre.isEmpty()) {
+        if (this.nombreProyecto == null || this.nombreProyecto.isEmpty()) {
             throw new IllegalArgumentException("El nombre es requerido");
-        }
-        if (this.codigo == null || this.codigo.isEmpty()) {
-            throw new IllegalArgumentException("El código es requerido");
         }
     }
 
+    /**
+     * Valida que el proyecto tenga un ID antes de actualizar su estado.
+     * @throws IllegalStateException si el ID del proyecto es inválido
+     */
     public void actualizarEstado() {
-        if (this.id <= 0) {
+        if (this.idProyecto <= 0) {
             throw new IllegalStateException("No se puede actualizar un proyecto sin ID");
         }
     }
 
+    /**
+     * Calcula la duración del proyecto en días.
+     * @return Número de días entre la fecha de inicio y fin, o 0 si alguna fecha es nula
+     */
     public long calcularDuracion() {
-        if (fechaInicio != null && fechaFin != null) {
-            return (fechaFin.getTime() - fechaInicio.getTime()) / (1000 * 60 * 60 * 24);
+        if (fechaInicioProyecto != null && fechaFinProyecto != null) {
+            return (fechaFinProyecto.getTime() - fechaInicioProyecto.getTime()) / (1000 * 60 * 60 * 24);
         }
         return 0;
     }

@@ -1,20 +1,20 @@
 erDiagram
     CLIENTE ||--o{ PROYECTO : "tiene"
-    PROYECTO ||--|| PRESUPUESTOS_DE_PROYECTO : "tiene"
-    PRESUPUESTOS_DE_PROYECTO ||--|{DETALLES_DE_PRESUPUESTOS : "incluye"
-    PROYECTO ||--o{ RECURSOS : "asigna"
-    PROYECTO ||--o{ SPRINTS_DE_PROYECTOS  : "define"
-    PROYECTO ||--o{ REQUERIMIENTOS_DE_PROYECTO : "contiene"
+    PROYECTO ||--|| PRESUPUESTO_DE_PROYECTO : "tiene"
+    PRESUPUESTO_DE_PROYECTO ||--|{DETALLES_DE_PRESUPUESTOS : "incluye"
+    PROYECTO ||--|{ RECURSOS : "asigna"
+    PROYECTO ||--|{ SPRINTS_DE_PROYECTOS  : "define"
+    PROYECTO ||--|{ REQUERIMIENTOS_DE_PROYECTO : "contiene"
     SPRINTS_DE_PROYECTOS ||--o{REQUERIMIENTOS_DE_PROYECTO : "implementan"
-    SPRINTS_DE_PROYECTOS ||--o{COLABORADORES : "participan"
-    PROYECTO }o--o{ COLABORADORES : "participan"
+    SPRINTS_DE_PROYECTOS ||--|{COLABORADORES : "participan"
+    PROYECTO }|--|{ COLABORADORES : "participan"
     SERVICIOS_ADICIONALES}o--|| DETALLES_DE_PRESUPUESTOS : "tiene"
 
 
 
     CLIENTE {
         int id_cliente PK
-        int numero_cliente
+        int telefono_cliente
         string email_cliente
         string empresa_cliente
         string rfc_cliente
@@ -42,7 +42,7 @@ erDiagram
         int horas_estimadas
     }
 
-    PRESUPUESTOS_DE_PROYECTO {
+    PRESUPUESTO_DE_PROYECTO {
         int id_presupuesto PK
         int id_proyecto_fk FK
         decimal total_presupuesto
