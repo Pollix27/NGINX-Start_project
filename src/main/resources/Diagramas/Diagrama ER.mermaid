@@ -12,9 +12,9 @@ erDiagram
 
 
 
-
     CLIENTE {
         int id_cliente PK
+        int numero_cliente
         string email_cliente
         string empresa_cliente
         string rfc_cliente
@@ -27,19 +27,19 @@ erDiagram
         string nombre_proyecto
         string descripcion_proyecto
         string complejidad_proyecto
-        date fechaInicio_proyecto
-        date fechaFin_proyecto
+        date fecha_inicio_proyecto
+        date fecha_fin_proyecto
         string estado_proyecto
     }
 
     REQUERIMIENTOS_DE_PROYECTO {
         int id_requerimiento PK
         int id_proyecto_fk FK
-        int id_sprint FK
+        int id_sprint_fk FK
         string descripcion_requerimiento
         string tipo_requerimiento
         string prioridad_requerimiento
-        int horasEstimadas_requerimiento
+        int horas_estimadas
     }
 
     PRESUPUESTOS_DE_PROYECTO {
@@ -73,8 +73,8 @@ erDiagram
         int id_sprint PK
         int id_proyecto_fk FK
         string nombre_sprint
-        date fechaInicio_sprint
-        date fechaFin_sprint
+        date fecha_inicio_sprint
+        date fecha_fin_sprint
         string estado_sprint
     }
 
