@@ -1,7 +1,7 @@
 package com.example.demo.servicios;
 
-import com.example.demo.entidades.ServiciosAdicionales;
-import com.example.demo.repositorios.ServiciosAdicionalesRepository;
+import com.example.demo.entidades.ServicioAdicional;
+import com.example.demo.interfaces.IRServicioAdicional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -18,14 +18,14 @@ import java.util.Optional;
 public class ServiciosAdicionalesService {
     /** Repositorio de servicios adicionales inyectado automáticamente */
     @Autowired
-    ServiciosAdicionalesRepository serviciosRepository;
+    IRServicioAdicional serviciosRepository;
 
     /**
      * Obtiene todos los servicios adicionales registrados.
      * @return Lista de todos los servicios adicionales
      */
-    public ArrayList<ServiciosAdicionales> obtenerServicios(){
-        return (ArrayList<ServiciosAdicionales>) serviciosRepository.findAll();
+    public ArrayList<ServicioAdicional> obtenerServicios(){
+        return (ArrayList<ServicioAdicional>) serviciosRepository.findAll();
     }
 
     /**
@@ -33,7 +33,7 @@ public class ServiciosAdicionalesService {
      * @param servicio Servicio adicional a guardar
      * @return Servicio guardado con su ID generado
      */
-    public ServiciosAdicionales guardarServicio(ServiciosAdicionales servicio){
+    public ServicioAdicional guardarServicio(ServicioAdicional servicio){
         return serviciosRepository.save(servicio);
     }
 
@@ -42,7 +42,7 @@ public class ServiciosAdicionalesService {
      * @param id ID del servicio a buscar
      * @return Optional con el servicio si existe, vacío si no
      */
-    public Optional<ServiciosAdicionales> obtenerPorId(int id){
+    public Optional<ServicioAdicional> obtenerPorId(int id){
         return serviciosRepository.findById(id);
     }
 
@@ -51,7 +51,7 @@ public class ServiciosAdicionalesService {
      * @param idDetalle ID del detalle de presupuesto
      * @return Lista de servicios adicionales del detalle
      */
-    public ArrayList<ServiciosAdicionales> obtenerPorDetalle(int idDetalle){
+    public ArrayList<ServicioAdicional> obtenerPorDetalle(int idDetalle){
         return serviciosRepository.findByDetallePresupuestoIdDetallePresupuesto(idDetalle);
     }
 }

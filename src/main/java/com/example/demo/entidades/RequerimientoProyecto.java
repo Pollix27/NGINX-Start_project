@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "REQUERIMIENTOS_DE_PROYECTO ")
-public class RequerimientosDeProyecto {
+public class RequerimientoProyecto {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,7 @@ public class RequerimientosDeProyecto {
     
     @ManyToOne
     @JoinColumn(name = "id_sprint_fk")
-    private SprintsDeProyecto sprint;
+    private SprintProyecto sprint;
     
     @Column(name = "descripcion_requerimiento")
     private String descripcionRequerimiento;
@@ -47,11 +47,11 @@ public class RequerimientosDeProyecto {
         this.proyecto = proyecto;
     }
 
-    public SprintsDeProyecto getSprint() {
+    public SprintProyecto getSprint() {
         return sprint;
     }
 
-    public void setSprint(SprintsDeProyecto sprint) {
+    public void setSprint(SprintProyecto sprint) {
         this.sprint = sprint;
     }
 

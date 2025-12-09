@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "DETALLES_DE_PRESUPUESTOS ")
-public class DetallesDePresupuestos {
+public class DetallePresupuesto {
     
     /** Identificador único del detalle de presupuesto (clave primaria) */
     @Id
@@ -24,7 +24,7 @@ public class DetallesDePresupuestos {
     /** Presupuesto al que pertenece este detalle (relación Many-to-One) */
     @ManyToOne
     @JoinColumn(name = "id_presupuesto_fk")
-    private PresupuestosDeProyecto presupuesto;
+    private PresupuestoProyecto presupuesto;
     
     /** Método de pago utilizado (efectivo, tarjeta, transferencia, etc.) */
     @Column(name = "metodo_de_pago")
@@ -54,11 +54,11 @@ public class DetallesDePresupuestos {
         this.idDetallePresupuesto = idDetallePresupuesto;
     }
 
-    public PresupuestosDeProyecto getPresupuesto() {
+    public PresupuestoProyecto getPresupuesto() {
         return presupuesto;
     }
 
-    public void setPresupuesto(PresupuestosDeProyecto presupuesto) {
+    public void setPresupuesto(PresupuestoProyecto presupuesto) {
         this.presupuesto = presupuesto;
     }
 

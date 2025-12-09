@@ -1,4 +1,4 @@
-package com.example.demo.repositorios;
+package com.example.demo.interfaces;
 
 import com.example.demo.entidades.Proyecto;
 import org.springframework.data.repository.CrudRepository;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @version 1.0
  */
 @Repository
-public interface ProyectoRepository extends CrudRepository<Proyecto, Integer> {
+public interface IRProyecto extends CrudRepository<Proyecto, Integer> {
     /**
      * Busca todos los proyectos asociados a un cliente específico.
      * @param idCliente ID del cliente

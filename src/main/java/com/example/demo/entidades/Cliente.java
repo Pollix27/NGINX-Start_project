@@ -1,6 +1,7 @@
 package com.example.demo.entidades;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 /**
  * Entidad que representa un Cliente en el sistema.

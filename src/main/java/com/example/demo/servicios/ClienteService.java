@@ -2,7 +2,7 @@ package com.example.demo.servicios;
 
 import com.example.demo.entidades.Cliente;
 
-import com.example.demo.repositorios.ClienteRepository;
+import com.example.demo.interfaces.IRCliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +20,14 @@ import java.util.Optional;
 public class ClienteService {
     /** Repositorio de clientes inyectado automáticamente */
     @Autowired
-    ClienteRepository clienteRepository;
+    IRCliente IRCliente;
 
     /**
      * Obtiene todos los clientes registrados.
      * @return Lista de todos los clientes
      */
     public ArrayList<Cliente> obtenerCliente(){
-        return (ArrayList<Cliente>) clienteRepository.findAll();
+        return (ArrayList<Cliente>) IRCliente.findAll();
     }
 
     /**
@@ -36,7 +36,7 @@ public class ClienteService {
      * @return Cliente guardado con su ID generado
      */
     public Cliente guardarCliente(Cliente cliente){
-        return clienteRepository.save(cliente);
+        return IRCliente.save(cliente);
     }
 
     /**
@@ -45,7 +45,7 @@ public class ClienteService {
      * @return Optional con el cliente si existe, vacío si no
      */
     public Optional<Cliente> obtenerPorId(int id){
-        return clienteRepository.findById(id);
+        return IRCliente.findById(id);
     }
 
 

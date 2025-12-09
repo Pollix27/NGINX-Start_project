@@ -1,12 +1,11 @@
 package com.example.demo.servicios;
 
 import com.example.demo.entidades.Proyecto;
-import com.example.demo.repositorios.ProyectoRepository;
+import com.example.demo.interfaces.IRProyecto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 /**
  * Servicio para la lógica de negocio de Proyecto.
@@ -19,14 +18,14 @@ import java.util.Optional;
 public class ProyectoService {
     /** Repositorio de proyectos inyectado automáticamente */
     @Autowired
-    ProyectoRepository proyectoRepository;
+    IRProyecto IRProyecto;
 
     /**
      * Obtiene todos los proyectos registrados.
      * @return Lista de todos los proyectos
      */
     public ArrayList<Proyecto> obtenerProyecto(){
-        return (ArrayList<Proyecto>) proyectoRepository.findAll();
+        return (ArrayList<Proyecto>) IRProyecto.findAll();
     }
 
     /**
@@ -35,7 +34,7 @@ public class ProyectoService {
      * @return Proyecto guardado con su ID generado
      */
     public Proyecto guardarProyecto(Proyecto proyecto){
-        return proyectoRepository.save(proyecto);
+        return IRProyecto.save(proyecto);
     }
 
     /**
@@ -44,6 +43,6 @@ public class ProyectoService {
      * @return Lista de proyectos del cliente
      */
     public ArrayList<Proyecto> obtenerPorCliente(int clienteId){
-        return proyectoRepository.findByClienteIdCliente(clienteId);
+        return IRProyecto.findByClienteIdCliente(clienteId);
     }
 }

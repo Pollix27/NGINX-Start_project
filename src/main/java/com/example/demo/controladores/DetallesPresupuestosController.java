@@ -1,6 +1,6 @@
 package com.example.demo.controladores;
 
-import com.example.demo.entidades.DetallesDePresupuestos;
+import com.example.demo.entidades.DetallePresupuesto;
 import com.example.demo.servicios.DetallesDePresupuestosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/detalles-presupuestos")
-public class DetallesDePresupuestosController {
+public class DetallesPresupuestosController {
     /** Servicio de detalles de presupuestos inyectado automáticamente */
     @Autowired
     private DetallesDePresupuestosService detallesService;
@@ -28,7 +28,7 @@ public class DetallesDePresupuestosController {
      * @return Lista de detalles de presupuestos
      */
     @GetMapping()
-    public ArrayList<DetallesDePresupuestos> obtenerDetalles(){
+    public ArrayList<DetallePresupuesto> obtenerDetalles(){
         return this.detallesService.obtenerDetalles();
     }
 
@@ -39,7 +39,7 @@ public class DetallesDePresupuestosController {
      * @return Detalle guardado con su ID generado
      */
     @PostMapping()
-    public DetallesDePresupuestos guardarDetalle(@RequestBody DetallesDePresupuestos detalle){
+    public DetallePresupuesto guardarDetalle(@RequestBody DetallePresupuesto detalle){
         return this.detallesService.guardarDetalle(detalle);
     }
 
@@ -50,7 +50,7 @@ public class DetallesDePresupuestosController {
      * @return Optional con el detalle si existe
      */
     @GetMapping(path = "/{id}")
-    public Optional<DetallesDePresupuestos> obtenerDetallePorId(@PathVariable("id") int id){
+    public Optional<DetallePresupuesto> obtenerDetallePorId(@PathVariable("id") int id){
         return this.detallesService.obtenerPorId(id);
     }
 
@@ -61,7 +61,7 @@ public class DetallesDePresupuestosController {
      * @return Lista de detalles del presupuesto
      */
     @GetMapping("/presupuesto/{idPresupuesto}")
-    public ArrayList<DetallesDePresupuestos> obtenerDetallesPorPresupuesto(@PathVariable("idPresupuesto") int idPresupuesto){
+    public ArrayList<DetallePresupuesto> obtenerDetallesPorPresupuesto(@PathVariable("idPresupuesto") int idPresupuesto){
         return this.detallesService.obtenerPorPresupuesto(idPresupuesto);
     }
 }

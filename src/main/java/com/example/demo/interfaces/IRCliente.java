@@ -1,11 +1,9 @@
-package com.example.demo.repositorios;
+package com.example.demo.interfaces;
 
 import com.example.demo.entidades.Cliente;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
 
 /**
  * Repositorio para la entidad Cliente.
@@ -14,7 +12,6 @@ import java.util.ArrayList;
  * @author NGINX
  * @version 1.0
  */
-
 @Repository
-public interface ClienteRepository extends CrudRepository<Cliente, Integer> {
+public interface IRCliente extends CrudRepository<Cliente, Integer> {
 }

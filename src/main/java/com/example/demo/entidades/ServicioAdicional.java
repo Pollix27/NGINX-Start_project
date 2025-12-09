@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "SERVICIOS_ADICIONALES")
-public class ServiciosAdicionales {
+public class ServicioAdicional {
     
     /** Identificador único del servicio adicional (clave primaria) */
     @Id
@@ -24,7 +24,7 @@ public class ServiciosAdicionales {
     /** Detalle de presupuesto al que pertenece este servicio (relación Many-to-One) */
     @ManyToOne
     @JoinColumn(name = "id_detalle_presupuesto_fk")
-    private DetallesDePresupuestos detallePresupuesto;
+    private DetallePresupuesto detallePresupuesto;
     
     /** Descripción del servicio adicional */
     @Column(name = "descripcion_servicio_adicional")
@@ -42,11 +42,11 @@ public class ServiciosAdicionales {
         this.idServicioAdicional = idServicioAdicional;
     }
 
-    public DetallesDePresupuestos getDetallePresupuesto() {
+    public DetallePresupuesto getDetallePresupuesto() {
         return detallePresupuesto;
     }
 
-    public void setDetallePresupuesto(DetallesDePresupuestos detallePresupuesto) {
+    public void setDetallePresupuesto(DetallePresupuesto detallePresupuesto) {
         this.detallePresupuesto = detallePresupuesto;
     }
 

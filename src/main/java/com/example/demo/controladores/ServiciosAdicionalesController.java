@@ -1,6 +1,6 @@
 package com.example.demo.controladores;
 
-import com.example.demo.entidades.ServiciosAdicionales;
+import com.example.demo.entidades.ServicioAdicional;
 import com.example.demo.servicios.ServiciosAdicionalesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +28,7 @@ public class ServiciosAdicionalesController {
      * @return Lista de servicios adicionales
      */
     @GetMapping()
-    public ArrayList<ServiciosAdicionales> obtenerServicios(){
+    public ArrayList<ServicioAdicional> obtenerServicios(){
         return this.serviciosService.obtenerServicios();
     }
 
@@ -39,7 +39,7 @@ public class ServiciosAdicionalesController {
      * @return Servicio guardado con su ID generado
      */
     @PostMapping()
-    public ServiciosAdicionales guardarServicio(@RequestBody ServiciosAdicionales servicio){
+    public ServicioAdicional guardarServicio(@RequestBody ServicioAdicional servicio){
         return this.serviciosService.guardarServicio(servicio);
     }
 
@@ -50,7 +50,7 @@ public class ServiciosAdicionalesController {
      * @return Optional con el servicio si existe
      */
     @GetMapping(path = "/{id}")
-    public Optional<ServiciosAdicionales> obtenerServicioPorId(@PathVariable("id") int id){
+    public Optional<ServicioAdicional> obtenerServicioPorId(@PathVariable("id") int id){
         return this.serviciosService.obtenerPorId(id);
     }
 
@@ -61,7 +61,7 @@ public class ServiciosAdicionalesController {
      * @return Lista de servicios adicionales del detalle
      */
     @GetMapping("/detalle/{idDetalle}")
-    public ArrayList<ServiciosAdicionales> obtenerServiciosPorDetalle(@PathVariable("idDetalle") int idDetalle){
+    public ArrayList<ServicioAdicional> obtenerServiciosPorDetalle(@PathVariable("idDetalle") int idDetalle){
         return this.serviciosService.obtenerPorDetalle(idDetalle);
     }
 }

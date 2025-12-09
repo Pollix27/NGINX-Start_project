@@ -1,6 +1,6 @@
-package com.example.demo.repositorios;
+package com.example.demo.interfaces;
 
-import com.example.demo.entidades.DetallesDePresupuestos;
+import com.example.demo.entidades.DetallePresupuesto;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
@@ -13,12 +13,12 @@ import java.util.ArrayList;
  * @version 1.0
  */
 @Repository
-public interface DetallesDePresupuestosRepository extends CrudRepository<DetallesDePresupuestos, Integer> {
+public interface IRDetallePresupuesto extends CrudRepository<DetallePresupuesto, Integer> {
     
     /**
      * Busca todos los detalles asociados a un presupuesto específico.
      * @param idPresupuesto ID del presupuesto
      * @return Lista de detalles del presupuesto
      */
-    ArrayList<DetallesDePresupuestos> findByPresupuestoIdPresupuesto(int idPresupuesto);
+    ArrayList<DetallePresupuesto> findByPresupuestoIdPresupuesto(int idPresupuesto);
 }

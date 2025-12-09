@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "SPRINTS_DE_PROYECTOS")
-public class SprintsDeProyecto {
+public class SprintProyecto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_sprint")

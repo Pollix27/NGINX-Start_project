@@ -23,7 +23,7 @@ classDiagram
         +calcularDuracion()
     }
 
-    class Requerimientos_de_proyecto {
+    class RequerimientoProyecto {
         -int id_requerimiento
         -int id_proyecto_fk
         -string descripcion_requerimiento
@@ -34,7 +34,7 @@ classDiagram
         +estimar()
     }
 
-    class Presupuestos_de_proyecto {
+    class PresupuestoProyecto {
         -int id_presupuesto
         -int id_proyecto_fk
         -decimal total_presupuesto
@@ -44,7 +44,7 @@ classDiagram
         +aprobar()
     }
 
-    class Detalles_de_presupuesto {
+    class DetallePresupuesto {
         -int id_detalle_presupuesto
         -int id_presupuesto_fk
         -string metodo_de_pago
@@ -54,7 +54,7 @@ classDiagram
         +calcularSubtotal()
     }
 
-    class Recursos {
+    class Recurso {
         -int id_recursos
         -int id_proyecto_fk
         -int cantidad_colaboradores
@@ -65,7 +65,7 @@ classDiagram
         +calcularCosto()
     }
 
-    class Sprints_de_proyecto {
+    class SprintProyecto {
         -int id_sprints
         -int id_proyecto_fk
         -string nombre_sprints
@@ -75,7 +75,7 @@ classDiagram
         +planificar()
     }
 
-    class Colaboradores{
+    class Colaborador{
     -int id_colaboradores
     -int id_proyecto_fk
     -int id_sprint_fk
@@ -86,7 +86,7 @@ classDiagram
     +actualizar()
     }
 
-    class Servicios_adicionales {
+    class ServicioAdicional {
         -int id_servicio_adicional
         -int id_detalle_presupuesto
         -string descripcion_servicio
@@ -96,12 +96,12 @@ classDiagram
 
 %% Relaciones
     Cliente "1" --> "0..*" Proyecto
-    Proyecto "1" --> "1" Presupuestos_de_proyecto
-    Presupuestos_de_proyecto "1" --> "1..*" Detalles_de_presupuesto
-    Proyecto "1" --> "1..*" Recursos
-    Proyecto "1" --> "1..*" Sprints_de_proyecto
-    Proyecto "1" --> "1..*" Requerimientos_de_proyecto
-    Sprints_de_proyecto "1" --> "0..*" Requerimientos_de_proyecto
-    Sprints_de_proyecto "1" --> "1..*" Colaboradores
-    Proyecto "1..*" --> "1..*" Colaboradores
-    Servicios_adicionales "0..*" --> "1" Detalles_de_presupuesto
+    Proyecto "1" --> "1" PresupuestoProyecto
+    PresupuestoProyecto "1" --> "1..*" DetallePresupuesto
+    Proyecto "1" --> "1..*" Recurso
+    Proyecto "1" --> "1..*" SprintProyecto
+    Proyecto "1" --> "1..*" RequerimientoProyecto
+    SprintProyecto "1" --> "0..*" RequerimientoProyecto
+    SprintProyecto "1" --> "1..*" Colaborador
+    Proyecto "1..*" --> "1..*" Colaborador
+    ServicioAdicional "0..*" --> "1" DetallePresupuesto

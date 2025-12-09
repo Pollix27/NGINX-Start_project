@@ -1,7 +1,7 @@
 package com.example.demo.servicios;
 
-import com.example.demo.entidades.DetallesDePresupuestos;
-import com.example.demo.repositorios.DetallesDePresupuestosRepository;
+import com.example.demo.entidades.DetallePresupuesto;
+import com.example.demo.interfaces.IRDetallePresupuesto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -18,14 +18,14 @@ import java.util.Optional;
 public class DetallesDePresupuestosService {
     /** Repositorio de detalles de presupuestos inyectado automáticamente */
     @Autowired
-    DetallesDePresupuestosRepository detallesRepository;
+    IRDetallePresupuesto detallesRepository;
 
     /**
      * Obtiene todos los detalles de presupuestos registrados.
      * @return Lista de todos los detalles de presupuestos
      */
-    public ArrayList<DetallesDePresupuestos> obtenerDetalles(){
-        return (ArrayList<DetallesDePresupuestos>) detallesRepository.findAll();
+    public ArrayList<DetallePresupuesto> obtenerDetalles(){
+        return (ArrayList<DetallePresupuesto>) detallesRepository.findAll();
     }
 
     /**
@@ -33,7 +33,7 @@ public class DetallesDePresupuestosService {
      * @param detalle Detalle de presupuesto a guardar
      * @return Detalle guardado con su ID generado
      */
-    public DetallesDePresupuestos guardarDetalle(DetallesDePresupuestos detalle){
+    public DetallePresupuesto guardarDetalle(DetallePresupuesto detalle){
         return detallesRepository.save(detalle);
     }
 
@@ -42,7 +42,7 @@ public class DetallesDePresupuestosService {
      * @param id ID del detalle a buscar
      * @return Optional con el detalle si existe, vacío si no
      */
-    public Optional<DetallesDePresupuestos> obtenerPorId(int id){
+    public Optional<DetallePresupuesto> obtenerPorId(int id){
         return detallesRepository.findById(id);
     }
 
@@ -51,7 +51,7 @@ public class DetallesDePresupuestosService {
      * @param idPresupuesto ID del presupuesto
      * @return Lista de detalles del presupuesto
      */
-    public ArrayList<DetallesDePresupuestos> obtenerPorPresupuesto(int idPresupuesto){
+    public ArrayList<DetallePresupuesto> obtenerPorPresupuesto(int idPresupuesto){
         return detallesRepository.findByPresupuestoIdPresupuesto(idPresupuesto);
     }
 }
