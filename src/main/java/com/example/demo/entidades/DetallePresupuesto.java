@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @version 1.0
  */
 @Entity
-@Table(name = "DETALLES_DE_PRESUPUESTOS ")
+@Table(name = "DETALLES_DE_PRESUPUESTOS")
 public class DetallePresupuesto {
     
     /** Identificador único del detalle de presupuesto (clave primaria) */

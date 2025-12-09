@@ -25,7 +25,7 @@ public class SprintProyecto {
     private String estadoSprint;
 
     @ManyToOne
-    @JoinColumn(name = "id_proyecto", nullable = false)
+    @JoinColumn(name = "id_proyecto_fk", nullable = false)
     private Proyecto proyecto;
 
     public int getIdSprint() {
