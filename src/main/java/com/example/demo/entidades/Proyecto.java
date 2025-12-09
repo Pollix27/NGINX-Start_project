@@ -12,7 +12,7 @@ import java.util.Date;
  * @version 1.0
  */
 @Entity
-@Table(name = "proyecto")
+@Table(name = "PROYECTO")
 public class Proyecto {
 
     /** Identificador único del proyecto (clave primaria) */

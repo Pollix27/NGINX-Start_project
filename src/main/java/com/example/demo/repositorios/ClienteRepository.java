@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author NGINX
  * @version 1.0
  */
+
 @Repository
 public interface ClienteRepository extends CrudRepository<Cliente, Integer> {
-
 }

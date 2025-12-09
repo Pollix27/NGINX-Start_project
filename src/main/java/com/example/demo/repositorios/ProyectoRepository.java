@@ -15,7 +15,6 @@ import java.util.ArrayList;
  */
 @Repository
 public interface ProyectoRepository extends CrudRepository<Proyecto, Integer> {
-    
     /**
      * Busca todos los proyectos asociados a un cliente específico.
      * @param idCliente ID del cliente

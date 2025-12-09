@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "presupuesto_de_proyecto")
+@Table(name = "PRESUPUESTO_DE_PROYECTO")
 public class PresupuestosDeProyecto {
     
     @Id

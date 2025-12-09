@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @version 1.0
  */
 @Entity
-@Table(name = "servicios_adicionales")
+@Table(name = "SERVICIOS_ADICIONALES")
 public class ServiciosAdicionales {
     
     /** Identificador único del servicio adicional (clave primaria) */

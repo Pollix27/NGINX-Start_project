@@ -1,6 +1,6 @@
 -- Crear base de datos
-CREATE DATABASE IF NOT EXISTS Base_StartProject;
-USE Base_StartProject;
+CREATE DATABASE IF NOT EXISTS BD_inicio;
+USE BD_inicio;
 
 -- Tabla CLIENTE
 CREATE TABLE CLIENTE (

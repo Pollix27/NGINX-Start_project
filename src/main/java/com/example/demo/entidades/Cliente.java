@@ -10,7 +10,7 @@ import jakarta.persistence.*;
  * @version 1.0
  */
 @Entity
-@Table(name = "cliente")
+@Table(name = "CLIENTE")
 public class Cliente {
     
     /** Identificador único del cliente (clave primaria) */
