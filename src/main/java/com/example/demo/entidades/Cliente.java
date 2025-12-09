@@ -11,7 +11,7 @@ import lombok.Data;
  * @version 1.0
  */
 @Entity
-@Table(name = "CLIENTE")
+@Table(name = "CLIENTES")
 public class Cliente {
     
     /** Identificador único del cliente (clave primaria) */
