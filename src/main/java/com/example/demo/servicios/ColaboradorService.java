@@ -41,6 +41,8 @@ public class ColaboradorService {
             Sprint sprint = sprintRepositorio.findById(colaborador.getSprint().getIdSprint())
                     .orElseThrow(() -> new RuntimeException("Sprint no encontrado"));
             colaborador.setSprint(sprint);
+        } else {
+            colaborador.setSprint(null);
         }
         return repositorio.save(colaborador);
     }
