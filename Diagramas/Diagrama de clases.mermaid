@@ -1,0 +1,85 @@
+classDiagram
+    class Cliente {
+        -int id_cliente
+        -string empresa_cliente
+        -string rfc_cliente
+        -string email_cliente
+        -int telefono_cliente
+        +registrar()
+        +actualizar()
+    }
+
+    class Proyecto {
+        -int id_proyecto
+        -int id_cliente_fk
+        -string nombre_proyecto
+        -string descripcion_proyecto
+        -string complejidad_proyecto
+        -Date fecha_inicio_proyecto
+        -Date fecha_fin_proyecto
+        -string estado_proyecto
+        +crear()
+        +actualizarEstado()
+        +calcularDuracion()
+    }
+
+    class Requisitos {
+        -int id_requisitos
+        -int id_proyecto_fk
+        -int id_sprint_fk
+        -string descripcion_requisitos
+        -string prioridad_requisitos
+        +agregar()
+        +estimar()
+    }
+
+    class Presupuesto {
+        -int id_presupuesto
+        -int id_proyecto_fk
+        -int id_requisitos_fk
+        -int id_colaborador_fk
+        -decimal subtotal
+        -decimal iva
+        -decimal total
+        -Date fecha_elaboracion
+        -string estado_presupuesto
+        -string metodo_pago
+        -string servicios_adicionales
+        -string descripcion_presupuesto
+        +calcular()
+        +aprobar()
+    }
+
+    class Sprint {
+        -int id_sprint
+        -int id_proyecto_fk
+        -string nombre_sprint
+        -string estado_sprint
+        -Date fecha_inicio_sprint
+        -Date fecha_fin_sprint
+        +planificar()
+        +actualizar()
+    }
+
+    class Colaborador {
+        -int id_colaborador
+        -int id_proyecto_fk
+        -int id_sprint_fk
+        -string nombre_colaborador
+        -string email_colaborador
+        -string rol_colaborador
+        decimal tarifa_hora_programador
+        +registrar()
+        +actualizar()
+    }
+
+%% Relaciones
+    Cliente "1" --> "0..*" Proyecto
+    Proyecto "1" --> "0..*" Requisitos
+    Proyecto "1" --> "0..*" Sprint
+    Proyecto "1" --> "0..*" Colaborador
+    Sprint "1" --> "0..*" Requisitos
+    Sprint "1" --> "0..*" Colaborador
+    Requisitos "1..*" ..> "1" Presupuesto : calcula
+    Colaborador "1..*" ..> "1" Presupuesto : calcula
+    Proyecto "1" --> "0..1" Presupuesto

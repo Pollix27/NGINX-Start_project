@@ -5,67 +5,49 @@ import com.example.demo.servicios.ProyectoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
-/**
- * Controlador REST para gestionar las operaciones de Proyecto.
- * Expone endpoints para crear, leer, actualizar y eliminar proyectos.
- * Ruta base: /proyecto
- * 
- * @author NGINX
- * @version 1.0
- */
 @RestController
-@RequestMapping("/proyecto")
+@RequestMapping("/api/proyectos")
+@CrossOrigin(origins = "*")
 public class ProyectoController {
-    /** Servicio de proyectos inyectado automáticamente */
+    
     @Autowired
-    private ProyectoService proyectoService;
-
-    /**
-     * Obtiene la lista de todos los proyectos.
-     * Endpoint: GET /proyecto
-     * @return Lista de proyectos
-     */
-    @GetMapping()
-    public ArrayList<Proyecto> obtenerProyectos(){
-        return this.proyectoService.obtenerProyecto();
+    private ProyectoService servicio;
+    
+    @GetMapping
+    public List<Proyecto> listarTodos() {
+        return servicio.listarTodos();
     }
-
-    /**
-     * Crea o actualiza un proyecto.
-     * Endpoint: POST /proyecto
-     * @param proyecto Datos del proyecto en formato JSON
-     * @return Proyecto guardado con su ID generado
-     */
-    @PostMapping()
-    public Proyecto guardarProyecto(@RequestBody Proyecto proyecto){
-        return this.proyectoService.guardarProyecto(proyecto);
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Proyecto> buscarPorId(@PathVariable int id) {
+        return servicio.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
-
-    /**
-     * Obtiene todos los proyectos asociados a un cliente específico.
-     * Endpoint: GET /proyecto/cliente/{clienteId}
-     * @param clienteId ID del cliente
-     * @return Lista de proyectos del cliente
-     */
-    @GetMapping("/cliente/{clienteId}")
-    public ArrayList<Proyecto> obtenerProyectosPorCliente(@PathVariable("clienteId") int clienteId){
-        return this.proyectoService.obtenerPorCliente(clienteId);
+    
+    @PostMapping
+    public Proyecto crear(@RequestBody Proyecto proyecto) {
+        return servicio.guardar(proyecto);
     }
-
-    /**
-     * Actualiza un proyecto existente.
-     * Endpoint: PUT /proyecto/{id}
-     * @param id ID del proyecto a actualizar
-     * @param proyecto Datos actualizados del proyecto
-     * @return Proyecto actualizado
-     */
-    @PutMapping(path = "/{id}")
-    public Proyecto actualizarProyecto(@PathVariable("id") int id, @RequestBody Proyecto proyecto){
-        proyecto.setIdProyecto(id);
-        return this.proyectoService.guardarProyecto(proyecto);
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<Proyecto> actualizar(@PathVariable int id, @RequestBody Proyecto proyecto) {
+        return servicio.buscarPorId(id)
+                .map(p -> {
+                    proyecto.setIdProyecto(id);
+                    return ResponseEntity.ok(servicio.guardar(proyecto));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable int id) {
+        if (servicio.buscarPorId(id).isPresent()) {
+            servicio.eliminar(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

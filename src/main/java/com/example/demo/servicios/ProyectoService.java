@@ -1,48 +1,41 @@
 package com.example.demo.servicios;
 
+import com.example.demo.entidades.Cliente;
 import com.example.demo.entidades.Proyecto;
+import com.example.demo.interfaces.IRCliente;
 import com.example.demo.interfaces.IRProyecto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
-import java.util.ArrayList;
-
-/**
- * Servicio para la lógica de negocio de Proyecto.
- * Gestiona las operaciones relacionadas con los proyectos.
- * 
- * @author NGINX
- * @version 1.0
- */
 @Service
 public class ProyectoService {
-    /** Repositorio de proyectos inyectado automáticamente */
+    
     @Autowired
-    IRProyecto IRProyecto;
-
-    /**
-     * Obtiene todos los proyectos registrados.
-     * @return Lista de todos los proyectos
-     */
-    public ArrayList<Proyecto> obtenerProyecto(){
-        return (ArrayList<Proyecto>) IRProyecto.findAll();
+    private IRProyecto repositorio;
+    
+    @Autowired
+    private IRCliente clienteRepositorio;
+    
+    public List<Proyecto> listarTodos() {
+        return repositorio.findAll();
     }
-
-    /**
-     * Guarda o actualiza un proyecto en la base de datos.
-     * @param proyecto Proyecto a guardar
-     * @return Proyecto guardado con su ID generado
-     */
-    public Proyecto guardarProyecto(Proyecto proyecto){
-        return IRProyecto.save(proyecto);
+    
+    public Optional<Proyecto> buscarPorId(int id) {
+        return repositorio.findById(id);
     }
-
-    /**
-     * Obtiene todos los proyectos asociados a un cliente específico.
-     * @param clienteId ID del cliente
-     * @return Lista de proyectos del cliente
-     */
-    public ArrayList<Proyecto> obtenerPorCliente(int clienteId){
-        return IRProyecto.findByClienteIdCliente(clienteId);
+    
+    public Proyecto guardar(Proyecto proyecto) {
+        if (proyecto.getCliente() != null && proyecto.getCliente().getIdCliente() > 0) {
+            Cliente cliente = clienteRepositorio.findById(proyecto.getCliente().getIdCliente())
+                    .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+            proyecto.setCliente(cliente);
+        }
+        return repositorio.save(proyecto);
+    }
+    
+    public void eliminar(int id) {
+        repositorio.deleteById(id);
     }
 }

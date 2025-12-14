@@ -1,7 +1,14 @@
 package com.example.demo.entidades;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
 
+import java.math.BigDecimal;
+import java.util.List;
+
+@Data
+@Getter
 @Entity
 @Table(name = "COLABORADORES")
 public class Colaborador {
@@ -12,79 +19,28 @@ public class Colaborador {
     private int idColaborador;
     
     @ManyToOne
-    @JoinColumn(name = "id_proyecto_fk")
+    @JoinColumn(name = "id_proyecto_fk", nullable = false)
     private Proyecto proyecto;
     
     @ManyToOne
     @JoinColumn(name = "id_sprint_fk")
-    private SprintProyecto sprint;
+    private Sprint sprint;
     
-    @Column(name = "nombre_colaborador")
+    @Column(name = "nombre_colaborador", length = 100)
     private String nombreColaborador;
     
-    @Column(name = "email_colaborador")
+    @Column(name = "email_colaborador", length = 100)
     private String emailColaborador;
     
-    @Column(name = "rol_colaborador")
+    @Column(name = "rol_colaborador", length = 50)
     private String rolColaborador;
+    
+    @Column(name = "tarifa_hora_programador", precision = 10, scale = 2)
+    private BigDecimal tarifaHoraProgramador;
+    
+    @OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL)
+    private List<Presupuesto> presupuestos;
 
-    public int getIdColaborador() {
-        return idColaborador;
-    }
+    public Colaborador() {}
 
-    public void setIdColaborador(int idColaborador) {
-        this.idColaborador = idColaborador;
-    }
-
-    public Proyecto getProyecto() {
-        return proyecto;
-    }
-
-    public void setProyecto(Proyecto proyecto) {
-        this.proyecto = proyecto;
-    }
-
-    public SprintProyecto getSprint() {
-        return sprint;
-    }
-
-    public void setSprint(SprintProyecto sprint) {
-        this.sprint = sprint;
-    }
-
-    public String getNombreColaborador() {
-        return nombreColaborador;
-    }
-
-    public void setNombreColaborador(String nombreColaborador) {
-        this.nombreColaborador = nombreColaborador;
-    }
-
-    public String getEmailColaborador() {
-        return emailColaborador;
-    }
-
-    public void setEmailColaborador(String emailColaborador) {
-        this.emailColaborador = emailColaborador;
-    }
-
-    public String getRolColaborador() {
-        return rolColaborador;
-    }
-
-    public void setRolColaborador(String rolColaborador) {
-        this.rolColaborador = rolColaborador;
-    }
-
-    public void registrar() {
-        if (this.nombreColaborador == null || this.nombreColaborador.isEmpty()) {
-            throw new IllegalArgumentException("El nombre es requerido");
-        }
-    }
-
-    public void actualizar() {
-        if (this.emailColaborador == null || this.emailColaborador.isEmpty()) {
-            throw new IllegalArgumentException("El email es requerido");
-        }
-    }
 }

@@ -1,0 +1,73 @@
+erDiagram
+    CLIENTE ||--o{ PROYECTO : "tiene"
+    PROYECTO ||--|{ REQUISITOS : "contiene"
+    PROYECTO ||--o{ SPRINT : "define"
+    PROYECTO ||--o{ COLABORADOR : "asigna"
+    SPRINT ||--o{ REQUISITOS : "implementa"
+    SPRINT ||--o{ COLABORADOR : "participa"
+    REQUISITOS }o--|| PRESUPUESTO : "calcula"
+    COLABORADOR }o--|| PRESUPUESTO : "calcula"
+    PROYECTO ||--o| PRESUPUESTO : "genera"
+
+    CLIENTE {
+        int id_cliente PK
+        string empresa_cliente
+        string rfc_cliente
+        string email_cliente
+        int telefono_cliente
+    }
+
+    PROYECTO {
+        int id_proyecto PK
+        int id_cliente_fk FK
+        string nombre_proyecto
+        string descripcion_proyecto
+        string complejidad_proyecto
+        date fecha_inicio_proyecto
+        date fecha_fin_proyecto
+        string estado_proyecto
+    }
+
+    REQUISITOS {
+        int id_requisitos PK
+        int id_proyecto_fk FK
+        int id_sprint_fk FK
+        string descripcion_requisitos
+        string prioridad_requisitos
+    }
+
+    PRESUPUESTO {
+        int id_presupuesto PK
+        int id_proyecto_fk FK
+        int id_requisitos_fk FK
+        int id_colaborador_fk FK
+        decimal subtotal
+        decimal iva
+        decimal total
+        date horas_elaboracion_presupuesto
+        string estado_presupuesto
+        string metodo_pago_presupuesto
+        string servicios_adicionales_presupuesto
+        string descripcion_presupuesto
+    }
+
+    SPRINT {
+        int id_sprint PK
+        int id_proyecto_fk FK
+        string nombre_sprint
+        string estado_sprint
+        date fecha_inicio_sprint
+        date fecha_fin_sprint
+
+    }
+
+    COLABORADOR {
+        int id_colaborador PK
+        int id_proyecto_fk FK
+        int id_sprint_fk FK
+        string nombre_colaborador
+        string email_colaborador
+        string rol_colaborador
+        decimal tarifa_hora_programador
+
+    }
