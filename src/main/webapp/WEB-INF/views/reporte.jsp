@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Generar Reporte XML</title>
+    <title>Generar Ticket PDF</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
@@ -70,7 +70,7 @@
         function generarReporte() {
             const proyectoId = document.getElementById('proyectoSelect').value;
             if (proyectoId) {
-                window.location.href = '/api/reportes/proyecto/' + proyectoId + '/xml';
+                window.location.href = '/api/reportes/proyecto/' + proyectoId + '/pdf';
             }
         }
     </script>
@@ -78,8 +78,8 @@
 <body>
     <div class="container">
         <a href="/" class="btn-home">← Volver al Inicio</a>
-        <h1>📊 Generar Reporte XML</h1>
-        <p class="subtitle">Seleccione un cliente y proyecto para generar el reporte</p>
+        <h1>📊 Generar Ticket PDF</h1>
+        <p class="subtitle">Seleccione un cliente y proyecto para generar el ticket</p>
 
         <c:if test="${not empty error}">
             <div class="mensaje error">${error}</div>
@@ -103,13 +103,14 @@
         </div>
 
         <button id="btnGenerar" class="btn-generate" onclick="generarReporte()" disabled>
-            Generar Reporte XML
+            Generar Ticket PDF
         </button>
 
         <div class="info-box">
             <p><strong>ℹ️ Información:</strong></p>
-            <p>• El reporte incluirá todos los datos del proyecto seleccionado</p>
-            <p>• Se descargará automáticamente como archivo XML</p>
+            <p>• El ticket incluirá todos los datos del proyecto seleccionado</p>
+            <p>• Se descargará automáticamente como archivo PDF</p>
+            <p>• Formato: ticket-(cliente)-(proyecto).pdf</p>
             <p>• Incluye: Cliente, Requisitos, Sprints, Colaboradores y Presupuestos</p>
         </div>
     </div>
