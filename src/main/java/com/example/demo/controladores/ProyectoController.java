@@ -3,6 +3,7 @@ package com.example.demo.controladores;
 import com.example.demo.entidades.Proyecto;
 import com.example.demo.servicios.ProyectoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -28,8 +29,17 @@ public class ProyectoController {
     }
     
     @PostMapping
-    public Proyecto crear(@RequestBody Proyecto proyecto) {
-        return servicio.guardar(proyecto);
+    public ResponseEntity<?> crear(@RequestBody Proyecto proyecto) {
+        try {
+            if (proyecto == null || proyecto.getNombreProyecto() == null || proyecto.getCliente() == null) {
+                return ResponseEntity.badRequest().body("Datos del proyecto incompletos");
+            }
+            Proyecto nuevo = servicio.guardar(proyecto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al crear proyecto: " + e.getMessage());
+        }
     }
     
     @PutMapping("/{id}")

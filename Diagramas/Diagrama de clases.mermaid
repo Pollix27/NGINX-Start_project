@@ -23,7 +23,7 @@ classDiagram
         +calcularDuracion()
     }
 
-    class Requisitos {
+    class Requisito {
         -int id_requisitos
         -int id_proyecto_fk
         -int id_sprint_fk
@@ -68,18 +68,18 @@ classDiagram
         -string nombre_colaborador
         -string email_colaborador
         -string rol_colaborador
-        decimal tarifa_hora_programador
+        -decimal tarifa_hora_programador
         +registrar()
         +actualizar()
     }
 
 %% Relaciones
     Cliente "1" --> "0..*" Proyecto
-    Proyecto "1" --> "0..*" Requisitos
+    Proyecto "1" --> "0..*" Requisito
     Proyecto "1" --> "0..*" Sprint
     Proyecto "1" --> "0..*" Colaborador
-    Sprint "1" --> "0..*" Requisitos
+    Sprint "1" --> "0..*" Requisito
     Sprint "1" --> "0..*" Colaborador
-    Requisitos "1..*" ..> "1" Presupuesto : calcula
+    Requisito "1..*" ..> "1" Presupuesto : calcula
     Colaborador "1..*" ..> "1" Presupuesto : calcula
     Proyecto "1" --> "0..1" Presupuesto

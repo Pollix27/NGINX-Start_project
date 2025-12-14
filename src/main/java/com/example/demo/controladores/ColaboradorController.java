@@ -3,6 +3,7 @@ package com.example.demo.controladores;
 import com.example.demo.entidades.Colaborador;
 import com.example.demo.servicios.ColaboradorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -33,13 +34,21 @@ public class ColaboradorController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<Colaborador> actualizar(@PathVariable int id, @RequestBody Colaborador colaborador) {
-        return servicio.buscarPorId(id)
-                .map(c -> {
-                    colaborador.setIdColaborador(id);
-                    return ResponseEntity.ok(servicio.guardar(colaborador));
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<?> actualizar(@PathVariable int id, @RequestBody Colaborador colaborador) {
+        try {
+            if (colaborador == null) {
+                return ResponseEntity.badRequest().body("Datos del colaborador incompletos");
+            }
+            return servicio.buscarPorId(id)
+                    .map(c -> {
+                        colaborador.setIdColaborador(id);
+                        return ResponseEntity.ok(servicio.guardar(colaborador));
+                    })
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al actualizar colaborador: " + e.getMessage());
+        }
     }
     
     @DeleteMapping("/{id}")

@@ -34,11 +34,11 @@ public class ClienteController {
     
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> actualizar(@PathVariable int id, @RequestBody Cliente cliente) {
-        return servicio.buscarPorId(id)
-                .map(c -> {
-                    cliente.setIdCliente(id);
-                    return ResponseEntity.ok(servicio.guardar(cliente));
-                }).orElse(ResponseEntity.notFound().build());
+        if (!servicio.buscarPorId(id).isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        cliente.setIdCliente(id);
+        return ResponseEntity.ok(servicio.guardar(cliente));
     }
     
     @DeleteMapping("/{id}")

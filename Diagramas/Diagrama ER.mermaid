@@ -1,11 +1,11 @@
 erDiagram
     CLIENTE ||--o{ PROYECTO : "tiene"
-    PROYECTO ||--|{ REQUISITOS : "contiene"
+    PROYECTO ||--|{ REQUISITO : "contiene"
     PROYECTO ||--o{ SPRINT : "define"
     PROYECTO ||--o{ COLABORADOR : "asigna"
-    SPRINT ||--o{ REQUISITOS : "implementa"
+    SPRINT ||--o{ REQUISITO : "implementa"
     SPRINT ||--o{ COLABORADOR : "participa"
-    REQUISITOS }o--|| PRESUPUESTO : "calcula"
+    REQUISITO }o--|| PRESUPUESTO : "calcula"
     COLABORADOR }o--|| PRESUPUESTO : "calcula"
     PROYECTO ||--o| PRESUPUESTO : "genera"
 
@@ -14,7 +14,7 @@ erDiagram
         string empresa_cliente
         string rfc_cliente
         string email_cliente
-        int telefono_cliente
+        string telefono_cliente
     }
 
     PROYECTO {
@@ -28,7 +28,7 @@ erDiagram
         string estado_proyecto
     }
 
-    REQUISITOS {
+    REQUISITO {
         int id_requisitos PK
         int id_proyecto_fk FK
         int id_sprint_fk FK

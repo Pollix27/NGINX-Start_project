@@ -1,5 +1,7 @@
 package com.example.demo.entidades;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -20,10 +22,12 @@ public class Colaborador {
     
     @ManyToOne
     @JoinColumn(name = "id_proyecto_fk", nullable = false)
+    @JsonBackReference("proyecto-colaboradores")
     private Proyecto proyecto;
     
     @ManyToOne
     @JoinColumn(name = "id_sprint_fk")
+    @JsonBackReference("sprint-colaboradores")
     private Sprint sprint;
     
     @Column(name = "nombre_colaborador", length = 100)
@@ -39,6 +43,7 @@ public class Colaborador {
     private BigDecimal tarifaHoraProgramador;
     
     @OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL)
+    @JsonManagedReference("colaborador-presupuestos")
     private List<Presupuesto> presupuestos;
 
     public Colaborador() {}

@@ -1,14 +1,14 @@
 package com.example.demo.entidades;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Data;
-import lombok.Getter;
-
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
-@Getter
 @Entity
 @Table(name = "PROYECTOS")
 public class Proyecto {
@@ -20,8 +20,11 @@ public class Proyecto {
     
     @ManyToOne
     @JoinColumn(name = "id_cliente_fk", nullable = false)
+    @JsonBackReference
     private Cliente cliente;
     
+    @NotBlank(message = "El nombre del proyecto es obligatorio")
+    @Size(max = 200, message = "El nombre no puede exceder 200 caracteres")
     @Column(name = "nombre_proyecto", nullable = false, length = 200)
     private String nombreProyecto;
     
@@ -31,6 +34,7 @@ public class Proyecto {
     @Column(name = "complejidad_proyecto", length = 50)
     private String complejidadProyecto;
     
+    @NotNull(message = "La fecha de inicio es obligatoria")
     @Column(name = "fecha_inicio_proyecto")
     private LocalDate fechaInicioProyecto;
     
@@ -41,34 +45,18 @@ public class Proyecto {
     private String estadoProyecto;
     
     @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL)
+    @JsonManagedReference("proyecto-requisitos")
     private List<Requisito> requisitos;
     
     @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL)
+    @JsonManagedReference("proyecto-sprints")
     private List<Sprint> sprints;
     
     @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL)
+    @JsonManagedReference("proyecto-colaboradores")
     private List<Colaborador> colaboradores;
     
     @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL)
+    @JsonManagedReference("proyecto-presupuestos")
     private List<Presupuesto> presupuestos;
-
-    public Proyecto() {}
-
-    @Override
-    public String toString() {
-        return "Proyecto{" +
-                "idProyecto=" + idProyecto +
-                ", cliente=" + cliente +
-                ", nombreProyecto='" + nombreProyecto + '\'' +
-                ", descripcionProyecto='" + descripcionProyecto + '\'' +
-                ", complejidadProyecto='" + complejidadProyecto + '\'' +
-                ", fechaInicioProyecto=" + fechaInicioProyecto +
-                ", fechaFinProyecto=" + fechaFinProyecto +
-                ", estadoProyecto='" + estadoProyecto + '\'' +
-                ", requisitos=" + requisitos +
-                ", sprints=" + sprints +
-                ", colaboradores=" + colaboradores +
-                ", presupuestos=" + presupuestos +
-                '}';
-    }
 }
