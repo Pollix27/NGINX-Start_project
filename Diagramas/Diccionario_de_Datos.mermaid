@@ -1,0 +1,71 @@
+graph TB
+    subgraph CLIENTE
+        C1[id_cliente: INT PK AUTO_INCREMENT]
+        C2[empresa_cliente: VARCHAR 255 NOT NULL]
+        C3[rfc_cliente: VARCHAR 13 NOT NULL UNIQUE]
+        C4[email_cliente: VARCHAR 100 NOT NULL UNIQUE]
+        C5[telefono_cliente: VARCHAR 15 NOT NULL]
+    end
+
+    subgraph PROYECTO
+        P1[id_proyecto: INT PK AUTO_INCREMENT]
+        P2[id_cliente_fk: INT FK NOT NULL]
+        P3[nombre_proyecto: VARCHAR 255 NOT NULL]
+        P4[descripcion_proyecto: TEXT]
+        P5[complejidad_proyecto: VARCHAR 50 NOT NULL]
+        P6[fecha_inicio_proyecto: DATE NOT NULL]
+        P7[fecha_fin_proyecto: DATE]
+        P8[estado_proyecto: VARCHAR 50 NOT NULL]
+    end
+
+    subgraph SPRINT
+        S1[id_sprint: INT PK AUTO_INCREMENT]
+        S2[id_proyecto_fk: INT FK NOT NULL]
+        S3[nombre_sprint: VARCHAR 100 NOT NULL]
+        S4[estado_sprint: VARCHAR 50 NOT NULL]
+        S5[fecha_inicio_sprint: DATE NOT NULL]
+        S6[fecha_fin_sprint: DATE]
+    end
+
+    subgraph REQUISITO
+        R1[id_requisitos: INT PK AUTO_INCREMENT]
+        R2[id_proyecto_fk: INT FK NOT NULL]
+        R3[id_sprint_fk: INT FK]
+        R4[descripcion_requisitos: TEXT NOT NULL]
+        R5[prioridad_requisitos: VARCHAR 20 NOT NULL]
+    end
+
+    subgraph COLABORADOR
+        CO1[id_colaborador: INT PK AUTO_INCREMENT]
+        CO2[id_proyecto_fk: INT FK NOT NULL]
+        CO3[id_sprint_fk: INT FK]
+        CO4[nombre_colaborador: VARCHAR 255 NOT NULL]
+        CO5[email_colaborador: VARCHAR 100 NOT NULL UNIQUE]
+        CO6[rol_colaborador: VARCHAR 50 NOT NULL]
+        CO7[tarifa_hora_programador: DECIMAL 10,2 NOT NULL]
+    end
+
+    subgraph PRESUPUESTO
+        PR1[id_presupuesto: INT PK AUTO_INCREMENT]
+        PR2[id_proyecto_fk: INT FK NOT NULL]
+        PR3[id_requisitos_fk: INT FK]
+        PR4[id_colaborador_fk: INT FK]
+        PR5[subtotal: DECIMAL 10,2 NOT NULL]
+        PR6[iva: DECIMAL 10,2 NOT NULL]
+        PR7[total: DECIMAL 10,2 NOT NULL]
+        PR8[horas_elaboracion_presupuesto: DATE NOT NULL]
+        PR9[estado_presupuesto: VARCHAR 50 NOT NULL]
+        PR10[metodo_pago_presupuesto: VARCHAR 50]
+        PR11[servicios_adicionales_presupuesto: TEXT]
+        PR12[descripcion_presupuesto: TEXT]
+    end
+
+    CLIENTE -->|1:N| PROYECTO
+    PROYECTO -->|1:N| SPRINT
+    PROYECTO -->|1:N| REQUISITO
+    PROYECTO -->|1:N| COLABORADOR
+    PROYECTO -->|1:0..1| PRESUPUESTO
+    SPRINT -->|1:N| REQUISITO
+    SPRINT -->|1:N| COLABORADOR
+    REQUISITO -->|N:1| PRESUPUESTO
+    COLABORADOR -->|N:1| PRESUPUESTO
