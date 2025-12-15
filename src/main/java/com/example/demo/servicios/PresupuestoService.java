@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Servicio para gestionar operaciones de negocio relacionadas con presupuestos.
+ */
 @Service
 public class PresupuestoService {
     
@@ -22,14 +25,29 @@ public class PresupuestoService {
     @Autowired
     private IRColaborador colaboradorRepositorio;
     
+    /**
+     * Obtiene la lista de todos los presupuestos.
+     * @return Lista de presupuestos
+     */
     public List<Presupuesto> listarTodos() {
         return repositorio.findAll();
     }
     
+    /**
+     * Busca un presupuesto por su ID.
+     * @param id Identificador del presupuesto
+     * @return Optional con el presupuesto si existe
+     */
     public Optional<Presupuesto> buscarPorId(int id) {
         return repositorio.findById(id);
     }
     
+    /**
+     * Guarda o actualiza un presupuesto.
+     * Valida y asigna el proyecto, requisito y colaborador correspondientes.
+     * @param presupuesto Presupuesto a guardar
+     * @return Presupuesto guardado
+     */
     public Presupuesto guardar(Presupuesto presupuesto) {
         if (presupuesto == null) {
             throw new IllegalArgumentException("El presupuesto no puede ser nulo");
@@ -60,6 +78,10 @@ public class PresupuestoService {
         return repositorio.save(presupuesto);
     }
     
+    /**
+     * Elimina un presupuesto por su ID.
+     * @param id Identificador del presupuesto a eliminar
+     */
     public void eliminar(int id) {
         repositorio.deleteById(id);
     }

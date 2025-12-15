@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Servicio para gestionar operaciones de negocio relacionadas con requisitos.
+ */
 @Service
 public class RequisitoService {
     
@@ -23,14 +26,29 @@ public class RequisitoService {
     @Autowired
     private IRSprint sprintRepositorio;
     
+    /**
+     * Obtiene la lista de todos los requisitos.
+     * @return Lista de requisitos
+     */
     public List<Requisito> listarTodos() {
         return repositorio.findAll();
     }
     
+    /**
+     * Busca un requisito por su ID.
+     * @param id Identificador del requisito
+     * @return Optional con el requisito si existe
+     */
     public Optional<Requisito> buscarPorId(int id) {
         return repositorio.findById(id);
     }
     
+    /**
+     * Guarda o actualiza un requisito.
+     * Valida y asigna el proyecto y sprint correspondientes.
+     * @param requisito Requisito a guardar
+     * @return Requisito guardado
+     */
     public Requisito guardar(Requisito requisito) {
         if (requisito == null) {
             throw new IllegalArgumentException("El requisito no puede ser nulo");
@@ -52,6 +70,10 @@ public class RequisitoService {
         return repositorio.save(requisito);
     }
     
+    /**
+     * Elimina un requisito por su ID.
+     * @param id Identificador del requisito a eliminar
+     */
     public void eliminar(int id) {
         if (!repositorio.existsById(id)) {
             throw new RuntimeException("Requisito no encontrado con ID: " + id);

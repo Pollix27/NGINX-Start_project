@@ -10,6 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controlador REST para generar reportes de proyectos.
+ */
 @RestController
 @RequestMapping("/api/reportes")
 @CrossOrigin(origins = "*")
@@ -20,6 +23,11 @@ public class ReporteController {
     @Autowired
     private XMLGeneratorService xmlGeneratorService;
     
+    /**
+     * Genera un reporte XML completo de un proyecto.
+     * @param id Identificador del proyecto
+     * @return ResponseEntity con el XML del reporte o error
+     */
     @GetMapping("/proyecto/{id}/xml")
     public ResponseEntity<String> generarReporteXML(@PathVariable int id) {
         try {

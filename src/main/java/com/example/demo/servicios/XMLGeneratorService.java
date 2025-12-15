@@ -15,12 +15,22 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
 import java.util.Optional;
 
+/**
+ * Servicio para generar reportes en formato XML de proyectos.
+ */
 @Service
 public class XMLGeneratorService {
     
     @Autowired
     private ProyectoService proyectoService;
     
+    /**
+     * Genera un reporte XML completo de un proyecto.
+     * Incluye información del proyecto, cliente, requisitos, sprints, colaboradores y presupuestos.
+     * @param idProyecto Identificador del proyecto
+     * @return String con el contenido XML del reporte
+     * @throws Exception Si el proyecto no existe o hay error en la generación
+     */
     public String generarReporteProyecto(int idProyecto) throws Exception {
         Optional<Proyecto> proyectoOpt = proyectoService.buscarPorId(idProyecto);
         
@@ -150,6 +160,13 @@ public class XMLGeneratorService {
         return writer.toString();
     }
     
+    /**
+     * Agrega un elemento XML al documento.
+     * @param doc Documento XML
+     * @param parent Elemento padre
+     * @param nombre Nombre del elemento
+     * @param valor Valor del elemento
+     */
     private void agregarElemento(Document doc, Element parent, String nombre, String valor) {
         Element element = doc.createElement(nombre);
         element.setTextContent(valor != null ? valor : "");

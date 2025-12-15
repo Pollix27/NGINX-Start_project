@@ -89,15 +89,19 @@
                     </div>
                     <div class="form-group">
                         <label>Subtotal:</label>
-                        <input type="number" step="0.01" name="subtotal" value="${presupuesto.subtotal}">
+                        <input type="number" step="0.01" name="subtotal" id="subtotal" value="${presupuesto.subtotal}" oninput="calcularTotal()">
                     </div>
                     <div class="form-group">
                         <label>IVA:</label>
-                        <input type="number" step="0.01" name="iva" value="${presupuesto.iva}">
+                        <div>
+                            <label><input type="radio" name="ivaRate" value="0.16" onchange="calcularTotal()" checked> 16%</label>
+                            <label style="margin-left: 15px;"><input type="radio" name="ivaRate" value="0.08" onchange="calcularTotal()"> 8%</label>
+                        </div>
+                        <input type="hidden" name="iva" id="iva" value="${presupuesto.iva}">
                     </div>
                     <div class="form-group">
                         <label>Total:</label>
-                        <input type="number" step="0.01" name="total" value="${presupuesto.total}">
+                        <input type="number" step="0.01" name="total" id="total" value="${presupuesto.total}" readonly style="background: #f0f0f0;">
                     </div>
                     <div class="form-group">
                         <label>Fecha de Elaboración:</label>
@@ -177,5 +181,16 @@
             </div>
         </div>
     </div>
+    <script>
+        function calcularTotal() {
+            const subtotal = parseFloat(document.getElementById('subtotal').value) || 0;
+            const ivaRate = parseFloat(document.querySelector('input[name="ivaRate"]:checked').value) || 0;
+            const ivaAmount = subtotal * ivaRate;
+            const total = subtotal + ivaAmount;
+            document.getElementById('iva').value = ivaAmount.toFixed(2);
+            document.getElementById('total').value = total.toFixed(2);
+        }
+        window.onload = function() { calcularTotal(); };
+    </script>
 </body>
 </html>

@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Servicio para gestionar operaciones de negocio relacionadas con colaboradores.
+ */
 @Service
 public class ColaboradorService {
     
@@ -23,14 +26,29 @@ public class ColaboradorService {
     @Autowired
     private IRSprint sprintRepositorio;
     
+    /**
+     * Obtiene la lista de todos los colaboradores.
+     * @return Lista de colaboradores
+     */
     public List<Colaborador> listarTodos() {
         return repositorio.findAll();
     }
     
+    /**
+     * Busca un colaborador por su ID.
+     * @param id Identificador del colaborador
+     * @return Optional con el colaborador si existe
+     */
     public Optional<Colaborador> buscarPorId(int id) {
         return repositorio.findById(id);
     }
     
+    /**
+     * Guarda o actualiza un colaborador.
+     * Valida y asigna el proyecto y sprint correspondientes.
+     * @param colaborador Colaborador a guardar
+     * @return Colaborador guardado
+     */
     public Colaborador guardar(Colaborador colaborador) {
         if (colaborador.getProyecto() != null && colaborador.getProyecto().getIdProyecto() > 0) {
             Proyecto proyecto = proyectoRepositorio.findById(colaborador.getProyecto().getIdProyecto())
@@ -47,6 +65,10 @@ public class ColaboradorService {
         return repositorio.save(colaborador);
     }
     
+    /**
+     * Elimina un colaborador por su ID.
+     * @param id Identificador del colaborador a eliminar
+     */
     public void eliminar(int id) {
         repositorio.deleteById(id);
     }
